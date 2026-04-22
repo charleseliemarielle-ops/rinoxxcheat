@@ -1,1 +1,4 @@
 project_id = "rgmbvlenyucfhhfsizkc"
+
+[functions.send-hack-attempt]
+verify_jwt = false
