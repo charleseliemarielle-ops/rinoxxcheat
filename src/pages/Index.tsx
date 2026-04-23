@@ -205,25 +205,14 @@ const Index = () => {
             </div>
 
             <div className="p-5 sm:p-6">
-              <label htmlFor="game" className="block text-sm font-medium mb-2">
-                Game
-              </label>
-              <div className="relative">
-                <Gamepad2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                <select
-                  id="game"
-                  value={game}
-                  onChange={(e) => setGame(e.target.value)}
-                  disabled={loading}
-                  className="w-full h-11 pl-9 pr-3 rounded-lg bg-input border border-border text-foreground text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary appearance-none"
-                >
-                  <option value="">Select a game</option>
-                  {GAMES.map((g) => (
-                    <option key={g} value={g}>
-                      {g}
-                    </option>
-                  ))}
-                </select>
+              <div className="flex items-center justify-between mb-4 p-3 rounded-lg bg-input border border-border">
+                <div className="flex items-center gap-2.5">
+                  <Gamepad2 className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium">Roblox</span>
+                </div>
+                <span className="text-[10px] tracking-widest text-primary uppercase">
+                  Supported
+                </span>
               </div>
 
               <label htmlFor="target" className="block text-sm font-medium mt-5 mb-2">
