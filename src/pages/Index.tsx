@@ -249,9 +249,16 @@ const Index = () => {
               <Button
                 onClick={handleHack}
                 disabled={loading}
-                className="w-full mt-5 h-12 rounded-lg font-medium text-base"
+                className="w-full mt-5 h-12 rounded-lg font-medium text-base hover-scale shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] disabled:opacity-80 disabled:hover:scale-100"
               >
-                {loading ? "Processing..." : "Start Hack"}
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <span className="h-4 w-4 rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
+                    Processing...
+                  </span>
+                ) : (
+                  "Start Hack"
+                )}
               </Button>
 
               {(steps.length > 0 || done) && (
@@ -259,14 +266,15 @@ const Index = () => {
                   {steps.map((s, i) => (
                     <div
                       key={i}
-                      className="fade-in-up flex items-center gap-2 text-sm text-muted-foreground"
+                      className="animate-slide-in-right flex items-center gap-2 text-sm text-muted-foreground"
+                      style={{ animationDelay: `${i * 60}ms` }}
                     >
                       <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                       <span>{s}</span>
                     </div>
                   ))}
                   {done && (
-                    <div className="fade-in-up mt-4 p-4 rounded-lg bg-primary/10 border border-primary/30">
+                    <div className="animate-scale-in mt-4 p-4 rounded-lg bg-primary/10 border border-primary/30">
                       <div className="flex items-center gap-2 font-medium text-primary mb-1">
                         <CheckCircle2 className="h-4 w-4" />
                         Request submitted
