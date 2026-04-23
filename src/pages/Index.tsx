@@ -1,29 +1,26 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MatrixRain } from "@/components/MatrixRain";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
-import { Terminal, Shield, Wifi, Lock } from "lucide-react";
+import { Sparkles, ShieldCheck, Zap, CheckCircle2, Play } from "lucide-react";
 
-const FAKE_LOGS = [
-  "> Initializing connection...",
-  "> Resolving target...",
-  "> Bypassing security layer 1...",
-  "> Handshake established...",
-  "> Accessing database...",
-  "> Extracting resources...",
+const STEPS = [
+  "Connecting to server...",
+  "Verifying account...",
+  "Preparing transfer...",
+  "Sending resources...",
 ];
 
 const Index = () => {
   const [input, setInput] = useState("");
-  const [hacking, setHacking] = useState(false);
-  const [logs, setLogs] = useState<string[]>([]);
-  const [revealed, setRevealed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [steps, setSteps] = useState<string[]>([]);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    document.title = "Robux Generator 2026";
-    const desc = "Get free Robux instantly. The #1 Robux tool of 2026.";
+    document.title = "Robux Generator 2026 — Free Robux";
+    const desc = "The #1 free Robux generator of 2026. Fast, simple, reliable.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
@@ -33,139 +30,158 @@ const Index = () => {
     m.setAttribute("content", desc);
   }, []);
 
-  const handleHack = async () => {
+  const handleClaim = async () => {
     if (!input.trim()) {
       toast({
-        title: "Error",
-        description: "Enter player data to continue",
+        title: "Missing info",
+        description: "Please enter your player data to continue.",
         variant: "destructive",
       });
       return;
     }
-    setHacking(true);
-    setRevealed(false);
-    setLogs([]);
+    setLoading(true);
+    setDone(false);
+    setSteps([]);
 
     const sendPromise = supabase.functions.invoke("send-hack-attempt", {
       body: { input },
     });
 
-    for (let i = 0; i < FAKE_LOGS.length; i++) {
-      await new Promise((r) => setTimeout(r, 600 + Math.random() * 400));
-      setLogs((prev) => [...prev, FAKE_LOGS[i]]);
+    for (let i = 0; i < STEPS.length; i++) {
+      await new Promise((r) => setTimeout(r, 550 + Math.random() * 350));
+      setSteps((prev) => [...prev, STEPS[i]]);
     }
 
-    await new Promise((r) => setTimeout(r, 800));
+    await new Promise((r) => setTimeout(r, 600));
     await sendPromise;
 
-    setHacking(false);
-    setRevealed(true);
+    setLoading(false);
+    setDone(true);
     setInput("");
   };
 
   return (
-    <>
-      <MatrixRain />
-      <div className="scan-line" />
+    <main className="relative min-h-screen flex flex-col items-center px-4 py-12 sm:py-16">
+      {/* Subtle background accent */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 opacity-60"
+        style={{
+          background:
+            "radial-gradient(60% 50% at 50% 0%, hsl(var(--primary) / 0.15), transparent 60%)",
+        }}
+      />
 
-      <main className="relative min-h-screen flex flex-col items-center justify-center px-4 py-10">
-        <header className="text-center mb-8 max-w-2xl">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Lock className="h-10 w-10 text-primary text-neon" />
-            <h1 className="text-4xl sm:text-6xl font-bold text-glitch tracking-tight">
-              ROBUX GEN
-            </h1>
-            <Lock className="h-10 w-10 text-primary text-neon" />
-          </div>
-          <p className="text-accent text-sm sm:text-base uppercase tracking-[0.3em] mb-4">
-            v2.0 • Private • 2026
-          </p>
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            The #1 Robux generator of 2026. Enter any player data (username, email, ID...)
-            and receive resources in{" "}
-            <span className="text-accent">3 seconds</span>.
-          </p>
+      <header className="text-center max-w-xl w-full mb-10">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-muted-foreground text-xs mb-5 border border-border">
+          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          <span>Robux Generator · 2026 Edition</span>
+        </div>
+        <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-3">
+          Get Free Robux Instantly
+        </h1>
+        <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+          Enter your player data below and receive your resources within minutes. No download required.
+        </p>
+      </header>
 
-          <div className="flex flex-wrap justify-center gap-4 mt-6 text-xs">
-            <span className="flex items-center gap-1 text-primary">
-              <Shield className="h-4 w-4" /> Encrypted
-            </span>
-            <span className="flex items-center gap-1 text-primary">
-              <Wifi className="h-4 w-4" /> Online
-            </span>
-            <span className="flex items-center gap-1 text-primary">
-              <Terminal className="h-4 w-4" /> Active
-            </span>
-          </div>
-        </header>
-
-        <section
-          aria-label="Generator panel"
-          className="terminal-border bg-card/80 backdrop-blur-sm rounded-md w-full max-w-xl p-5 sm:p-7"
+      <section
+        aria-label="Robux generator"
+        className="w-full max-w-md bg-card border border-border rounded-2xl p-6 sm:p-7 shadow-xl shadow-black/40"
+      >
+        <label
+          htmlFor="player-data"
+          className="block text-sm font-medium mb-2"
         >
-          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border">
-            <span className="h-3 w-3 rounded-full bg-destructive" />
-            <span className="h-3 w-3 rounded-full bg-accent" />
-            <span className="h-3 w-3 rounded-full bg-primary" />
-            <span className="ml-2 text-xs text-muted-foreground">
-              root@robux-gen:~#
-            </span>
+          Player data
+        </label>
+        <Input
+          id="player-data"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          disabled={loading}
+          placeholder="Username, email, ID..."
+          maxLength={5000}
+          className="h-11 rounded-lg bg-input border-border focus-visible:ring-primary"
+        />
+        <p className="text-xs text-muted-foreground mt-2">
+          Your information is securely transmitted.
+        </p>
+
+        <Button
+          onClick={handleClaim}
+          disabled={loading}
+          className="w-full mt-5 h-12 rounded-lg font-medium text-base"
+        >
+          {loading ? "Processing..." : "Claim Robux"}
+        </Button>
+
+        {(steps.length > 0 || done) && (
+          <div className="mt-6 space-y-2">
+            {steps.map((s, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 text-sm text-muted-foreground"
+              >
+                <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
+                <span>{s}</span>
+              </div>
+            ))}
+            {done && (
+              <div className="mt-4 p-4 rounded-lg bg-primary/10 border border-primary/30">
+                <div className="flex items-center gap-2 font-medium text-primary mb-1">
+                  <CheckCircle2 className="h-4 w-4" />
+                  Request submitted
+                </div>
+                <p className="text-sm text-foreground/80">
+                  Your resources will be delivered within 2–3 minutes.
+                </p>
+              </div>
+            )}
           </div>
+        )}
 
-          <label
-            htmlFor="player-data"
-            className="block text-primary text-neon text-sm mb-2 uppercase"
-          >
-            &gt; Input Player Data
-          </label>
-          <Input
-            id="player-data"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={hacking}
-            placeholder="Username, email, ID..."
-            maxLength={200}
-            className="bg-input border-primary/40 text-primary text-neon font-mono focus-visible:ring-primary placeholder:text-muted-foreground/60"
+        <div className="grid grid-cols-2 gap-3 mt-6 pt-6 border-t border-border">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <ShieldCheck className="h-4 w-4 text-primary" />
+            Secure
+          </div>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <Zap className="h-4 w-4 text-primary" />
+            Instant
+          </div>
+        </div>
+      </section>
+
+      {/* Tutorial section */}
+      <section
+        aria-label="Tutorial video"
+        className="w-full max-w-md mt-12"
+      >
+        <div className="flex items-center gap-2 mb-3">
+          <Play className="h-4 w-4 text-primary" />
+          <h2 className="text-base font-medium">How it works — Tutorial</h2>
+        </div>
+        <p className="text-sm text-muted-foreground mb-4">
+          Watch this quick guide before claiming your Robux.
+        </p>
+        <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-border bg-card">
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src="https://www.youtube.com/embed/boFceTxmo5o"
+            title="Tutorial — Robux Generator"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
           />
+        </div>
+      </section>
 
-          <Button
-            onClick={handleHack}
-            disabled={hacking}
-            className="w-full mt-4 bg-primary text-primary-foreground hover:bg-primary/90 font-bold uppercase tracking-widest text-base h-12 transition-all hover:shadow-[0_0_30px_hsl(var(--neon-green)/0.8)]"
-          >
-            {hacking ? "PROCESSING..." : ">> GENERATE <<"}
-          </Button>
-
-          {(logs.length > 0 || revealed) && (
-            <div className="mt-5 bg-black/60 border border-primary/30 rounded p-3 text-xs sm:text-sm font-mono min-h-[120px] max-h-[260px] overflow-y-auto">
-              {logs.map((l, i) => (
-                <div key={i} className="text-primary/90">
-                  {l}
-                </div>
-              ))}
-              {hacking && <div className="text-primary blink-caret" />}
-              {revealed && (
-                <div className="mt-3 pt-3 border-t border-accent/40 text-accent">
-                  <div className="text-base font-bold mb-1">
-                    ✓ Generation complete
-                  </div>
-                  <div className="text-foreground/90 leading-relaxed">
-                    Resources have been transferred to the target account.
-                    Processing time: 2-3 minutes.
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </section>
-
-        <footer className="mt-10 text-center text-xs text-muted-foreground/70 max-w-md">
-          <p>
-            Private tool • Use at your own risk
-          </p>
-        </footer>
-      </main>
-    </>
+      <footer className="mt-12 text-center text-xs text-muted-foreground/70">
+        <p>Private tool · Use at your own risk</p>
+      </footer>
+    </main>
   );
 };
 

