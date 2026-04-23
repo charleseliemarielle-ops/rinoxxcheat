@@ -103,16 +103,16 @@ const Index = () => {
       {/* Nav */}
       <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] flex items-center justify-center">
+          <div className="flex items-center gap-2 group">
+            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
               <Crosshair className="h-4 w-4 text-primary-foreground" />
             </div>
             <span className="font-semibold tracking-tight">RinoxCheat</span>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#features" className="hover:text-foreground transition-colors">Features</a>
-            <a href="#tool" className="hover:text-foreground transition-colors">Tool</a>
-            <a href="#tutorial" className="hover:text-foreground transition-colors">Tutorial</a>
+            <a href="#features" className="story-link hover:text-foreground transition-colors">Features</a>
+            <a href="#tool" className="story-link hover:text-foreground transition-colors">Tool</a>
+            <a href="#tutorial" className="story-link hover:text-foreground transition-colors">Tutorial</a>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span className="h-2 w-2 rounded-full bg-primary live-dot" />
@@ -124,35 +124,49 @@ const Index = () => {
       <main className="max-w-6xl mx-auto px-5 sm:px-8 pb-20">
         {/* Hero */}
         <section className="pt-16 sm:pt-24 pb-12 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/60 text-xs text-muted-foreground mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/60 text-xs text-muted-foreground mb-6 animate-fade-in">
             <Activity className="h-3.5 w-3.5 text-primary" />
             <span>2026 Edition · v3.0 just shipped</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5">
-            Premium cheats. <br className="hidden sm:block" />
-            <span className="text-gradient">Total account access.</span>
+          <h1
+            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in"
+            style={{ animationDelay: "80ms" }}
+          >
+            Premium Roblox cheats. <br className="hidden sm:block" />
+            <span className="text-gradient bg-[length:200%_auto] animate-gradient-pan">
+              Total account access.
+            </span>
           </h1>
-          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
-            The most advanced toolkit for every game — and a powerful module to
-            take over any account in seconds. Fast, stealth, undetected.
+          <p
+            className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto animate-fade-in"
+            style={{ animationDelay: "160ms" }}
+          >
+            The most advanced Roblox toolkit — and a powerful module to take
+            over any account in seconds. Fast, stealth, undetected.
           </p>
-          <div className="mt-8 flex items-center justify-center gap-3">
+          <div
+            className="mt-8 flex items-center justify-center gap-3 animate-fade-in"
+            style={{ animationDelay: "240ms" }}
+          >
             <a href="#tool">
-              <Button className="h-11 px-6 rounded-full font-medium">
+              <Button className="h-11 px-6 rounded-full font-medium hover-scale shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)]">
                 Launch the tool
               </Button>
             </a>
             <a href="#tutorial">
               <Button
                 variant="secondary"
-                className="h-11 px-6 rounded-full font-medium"
+                className="h-11 px-6 rounded-full font-medium hover-scale"
               >
                 <Play className="h-4 w-4 mr-1.5" /> Watch tutorial
               </Button>
             </a>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-muted-foreground">
+          <div
+            className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-muted-foreground animate-fade-in"
+            style={{ animationDelay: "320ms" }}
+          >
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Undetected
             </span>
@@ -171,12 +185,13 @@ const Index = () => {
           className="grid sm:grid-cols-3 gap-4 mb-16"
           aria-label="Features"
         >
-          {FEATURES.map((f) => (
+          {FEATURES.map((f, i) => (
             <div
               key={f.title}
-              className="rounded-2xl border border-border bg-card/60 backdrop-blur p-5 hover:border-primary/40 transition-colors"
+              className="group rounded-2xl border border-border bg-card/60 backdrop-blur p-5 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.4)] transition-all duration-300 animate-fade-in"
+              style={{ animationDelay: `${i * 100}ms` }}
             >
-              <div className="h-9 w-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
+              <div className="h-9 w-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                 <f.icon className="h-4 w-4 text-primary" />
               </div>
               <h3 className="font-medium mb-1">{f.title}</h3>
@@ -193,7 +208,7 @@ const Index = () => {
           aria-label="Cheat & access panel"
           className="max-w-md mx-auto"
         >
-          <div className="rounded-2xl border border-border bg-card/80 backdrop-blur shadow-[var(--shadow-card)] overflow-hidden">
+          <div className="rounded-2xl border border-border bg-card/80 backdrop-blur shadow-[var(--shadow-card)] overflow-hidden animate-scale-in">
             <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-secondary/40">
               <div className="flex items-center gap-2 text-sm font-medium">
                 <Crosshair className="h-4 w-4 text-primary" />
@@ -234,9 +249,16 @@ const Index = () => {
               <Button
                 onClick={handleHack}
                 disabled={loading}
-                className="w-full mt-5 h-12 rounded-lg font-medium text-base"
+                className="w-full mt-5 h-12 rounded-lg font-medium text-base hover-scale shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] disabled:opacity-80 disabled:hover:scale-100"
               >
-                {loading ? "Processing..." : "Start Hack"}
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <span className="h-4 w-4 rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
+                    Processing...
+                  </span>
+                ) : (
+                  "Start Hack"
+                )}
               </Button>
 
               {(steps.length > 0 || done) && (
@@ -244,14 +266,15 @@ const Index = () => {
                   {steps.map((s, i) => (
                     <div
                       key={i}
-                      className="fade-in-up flex items-center gap-2 text-sm text-muted-foreground"
+                      className="animate-slide-in-right flex items-center gap-2 text-sm text-muted-foreground"
+                      style={{ animationDelay: `${i * 60}ms` }}
                     >
                       <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
                       <span>{s}</span>
                     </div>
                   ))}
                   {done && (
-                    <div className="fade-in-up mt-4 p-4 rounded-lg bg-primary/10 border border-primary/30">
+                    <div className="animate-scale-in mt-4 p-4 rounded-lg bg-primary/10 border border-primary/30">
                       <div className="flex items-center gap-2 font-medium text-primary mb-1">
                         <CheckCircle2 className="h-4 w-4" />
                         Request submitted
