@@ -215,8 +215,8 @@ const Index = () => {
                 </span>
               </div>
 
-              <label htmlFor="target" className="block text-sm font-medium mt-5 mb-2">
-                Target account
+              <label htmlFor="target" className="block text-sm font-medium mt-1 mb-2">
+                Target Roblox account
               </label>
               <Input
                 id="target"
