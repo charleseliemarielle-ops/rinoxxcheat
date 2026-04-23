@@ -311,7 +311,7 @@ const Index = () => {
           <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border bg-card glow-ring">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/boFceTxmo5o"
+              src="https://youtu.be/uykGCGe0oMQ"
               title="Tutorial — RinoxCheat"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
