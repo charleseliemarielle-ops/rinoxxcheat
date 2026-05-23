@@ -113,3 +113,67 @@
 .fade-in-up {
   animation: fade-in-up 0.35s ease-out both;
 }
+
+/* Background orbs */
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.35;
+  will-change: transform;
+}
+.orb-1 {
+  width: 420px; height: 420px;
+  top: -80px; left: -100px;
+  background: radial-gradient(circle, hsl(var(--primary) / 0.55), transparent 70%);
+  animation: orb-float-1 18s ease-in-out infinite;
+}
+.orb-2 {
+  width: 360px; height: 360px;
+  top: 30%; right: -120px;
+  background: radial-gradient(circle, hsl(var(--primary-glow) / 0.45), transparent 70%);
+  animation: orb-float-2 22s ease-in-out infinite;
+}
+.orb-3 {
+  width: 300px; height: 300px;
+  bottom: -100px; left: 30%;
+  background: radial-gradient(circle, hsl(var(--accent) / 0.4), transparent 70%);
+  animation: orb-float-3 26s ease-in-out infinite;
+}
+
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, 40px) scale(1.1); }
+}
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-80px, 60px) scale(1.15); }
+}
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, -50px) scale(0.9); }
+}
+
+/* Drifting particles */
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: hsl(var(--primary) / 0.6);
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.7);
+  animation: particle-rise linear infinite;
+}
+@keyframes particle-rise {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-110vh) translateX(40px); opacity: 0; }
+}
+
