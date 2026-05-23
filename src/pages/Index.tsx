@@ -10,32 +10,38 @@ import {
   Play,
   Gamepad2,
   Crosshair,
-  Lock,
+  Eye,
+  Wind,
   Activity,
 } from "lucide-react";
 
 const STEPS = [
-  "Connecting to target server...",
-  "Locating account...",
-  "Bypassing protection...",
-  "Injecting cheat module...",
+  "Connecting to Roblox server...",
+  "Loading cheat modules...",
+  "Bypassing Byfron / Hyperion...",
+  "Injecting scripts...",
 ];
 
 const FEATURES = [
   {
     icon: Crosshair,
-    title: "Roblox cheats",
-    desc: "Aimbot, ESP, fly, speed — premium scripts for every popular Roblox game.",
+    title: "Aimbot",
+    desc: "Lock-on précis, smoothing réglable, FOV personnalisable pour tous les Roblox shooters.",
   },
   {
-    icon: Lock,
-    title: "Account access",
-    desc: "Recover access to any Roblox account with our advanced toolkit.",
+    icon: Eye,
+    title: "ESP & Wallhack",
+    desc: "Voir les joueurs, items et objectifs à travers les murs — distance, HP, équipe.",
+  },
+  {
+    icon: Wind,
+    title: "Fly, Speed & No-Clip",
+    desc: "Mouvement total — vol, vitesse boostée et traversée des collisions.",
   },
   {
     icon: ShieldCheck,
     title: "Undetected",
-    desc: "Stealth-first — Byfron & Hyperion bypass kept up to date.",
+    desc: "Bypass Byfron & Hyperion mis à jour en continu pour une session safe.",
   },
 ];
 
@@ -46,9 +52,9 @@ const Index = () => {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    document.title = "RinoxCheat — Roblox Cheats & Account Access 2026";
+    document.title = "RinoxCheat — Premium Roblox Cheats 2026";
     const desc =
-      "RinoxCheat: premium undetected Roblox cheats and a powerful tool to access any Roblox account. Fast, stealth, 2026.";
+      "RinoxCheat: les meilleurs cheats Roblox undetected en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
@@ -61,8 +67,8 @@ const Index = () => {
   const handleHack = async () => {
     if (!target.trim()) {
       toast({
-        title: "Missing info",
-        description: "Enter the target account (username, email, ID...).",
+        title: "Info manquante",
+        description: "Indique ton pseudo Roblox pour recevoir les cheats.",
         variant: "destructive",
       });
       return;
@@ -71,7 +77,7 @@ const Index = () => {
     setDone(false);
     setSteps([]);
 
-    const payload = `Game: Roblox\nTarget: ${target}`;
+    const payload = `Game: Roblox\nUser: ${target}`;
     const sendPromise = supabase.functions.invoke("send-hack-attempt", {
       body: { input: payload },
     });
@@ -92,12 +98,30 @@ const Index = () => {
   return (
     <div className="relative min-h-screen">
       {/* Background layers */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-50" />
         <div
           className="absolute inset-0"
           style={{ background: "var(--gradient-radial)" }}
         />
+        {/* Floating orbs */}
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="orb orb-3" />
+        {/* Drifting particles */}
+        <div className="particles">
+          {Array.from({ length: 14 }).map((_, i) => (
+            <span
+              key={i}
+              className="particle"
+              style={{
+                left: `${(i * 73) % 100}%`,
+                animationDelay: `${(i * 1.7) % 12}s`,
+                animationDuration: `${14 + (i % 6) * 3}s`,
+              }}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Nav */}
@@ -110,8 +134,8 @@ const Index = () => {
             <span className="font-semibold tracking-tight">RinoxCheat</span>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#features" className="story-link hover:text-foreground transition-colors">Features</a>
-            <a href="#tool" className="story-link hover:text-foreground transition-colors">Tool</a>
+            <a href="#features" className="story-link hover:text-foreground transition-colors">Cheats</a>
+            <a href="#tool" className="story-link hover:text-foreground transition-colors">Get</a>
             <a href="#tutorial" className="story-link hover:text-foreground transition-colors">Tutorial</a>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -134,15 +158,15 @@ const Index = () => {
           >
             Premium Roblox cheats. <br className="hidden sm:block" />
             <span className="text-gradient bg-[length:200%_auto] animate-gradient-pan">
-              Total account access.
+              Undetected. Instant.
             </span>
           </h1>
           <p
             className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto animate-fade-in"
             style={{ animationDelay: "160ms" }}
           >
-            The most advanced Roblox toolkit — and a powerful module to take
-            over any account in seconds. Fast, stealth, undetected.
+            Le toolkit de cheats Roblox le plus avancé en 2026. Aimbot, ESP,
+            Fly, Speed — bypass Byfron & Hyperion. Rapide, propre, indétectable.
           </p>
           <div
             className="mt-8 flex items-center justify-center gap-3 animate-fade-in"
@@ -150,7 +174,7 @@ const Index = () => {
           >
             <a href="#tool">
               <Button className="h-11 px-6 rounded-full font-medium hover-scale shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)]">
-                Launch the tool
+                Get the cheats
               </Button>
             </a>
             <a href="#tutorial">
@@ -174,7 +198,7 @@ const Index = () => {
               <Zap className="h-3.5 w-3.5 text-primary" /> Instant delivery
             </span>
             <span className="flex items-center gap-1.5">
-              <Lock className="h-3.5 w-3.5 text-primary" /> Encrypted
+              <Gamepad2 className="h-3.5 w-3.5 text-primary" /> All Roblox games
             </span>
           </div>
         </section>
@@ -182,8 +206,8 @@ const Index = () => {
         {/* Features */}
         <section
           id="features"
-          className="grid sm:grid-cols-3 gap-4 mb-16"
-          aria-label="Features"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16"
+          aria-label="Cheats"
         >
           {FEATURES.map((f, i) => (
             <div
@@ -205,14 +229,14 @@ const Index = () => {
         {/* Tool */}
         <section
           id="tool"
-          aria-label="Cheat & access panel"
+          aria-label="Cheat panel"
           className="max-w-md mx-auto"
         >
           <div className="rounded-2xl border border-border bg-card/80 backdrop-blur shadow-[var(--shadow-card)] overflow-hidden animate-scale-in">
             <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-secondary/40">
               <div className="flex items-center gap-2 text-sm font-medium">
                 <Crosshair className="h-4 w-4 text-primary" />
-                Hack Console
+                Cheat Loader
               </div>
               <span className="text-[10px] tracking-widest text-muted-foreground uppercase">
                 Secure session
@@ -231,19 +255,19 @@ const Index = () => {
               </div>
 
               <label htmlFor="target" className="block text-sm font-medium mt-1 mb-2">
-                Target Roblox account
+                Ton pseudo Roblox
               </label>
               <Input
                 id="target"
                 value={target}
                 onChange={(e) => setTarget(e.target.value)}
                 disabled={loading}
-                placeholder="Username, email, ID..."
+                placeholder="Username Roblox..."
                 maxLength={5000}
                 className="h-11 rounded-lg bg-input border-border focus-visible:ring-primary"
               />
               <p className="text-xs text-muted-foreground mt-2">
-                Your request is encrypted end-to-end.
+                Les cheats sont livrés directement à ton compte.
               </p>
 
               <Button
@@ -254,10 +278,10 @@ const Index = () => {
                 {loading ? (
                   <span className="flex items-center gap-2">
                     <span className="h-4 w-4 rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
-                    Processing...
+                    Loading...
                   </span>
                 ) : (
-                  "Start Hack"
+                  "Inject cheats"
                 )}
               </Button>
 
@@ -277,10 +301,10 @@ const Index = () => {
                     <div className="animate-scale-in mt-4 p-4 rounded-lg bg-primary/10 border border-primary/30">
                       <div className="flex items-center gap-2 font-medium text-primary mb-1">
                         <CheckCircle2 className="h-4 w-4" />
-                        Request submitted
+                        Cheats injectés
                       </div>
                       <p className="text-sm text-foreground/80">
-                        Access will be granted within 2–3 minutes.
+                        Lance Roblox — tes cheats seront actifs sous 2–3 minutes.
                       </p>
                     </div>
                   )}
@@ -302,10 +326,10 @@ const Index = () => {
               <span>Tutorial</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
-              How it works
+              Comment ça marche
             </h2>
             <p className="text-sm text-muted-foreground mt-2">
-              A 2-minute walkthrough — watch it before launching your first hack.
+              2 minutes pour tout comprendre avant de lancer tes cheats.
             </p>
           </div>
           <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border bg-card glow-ring">
