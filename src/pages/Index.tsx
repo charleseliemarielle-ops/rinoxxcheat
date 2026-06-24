@@ -128,7 +128,7 @@ const Index = () => {
       <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2 group">
-            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-[...]
+            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-[...]">
               <Crosshair className="h-4 w-4 text-primary-foreground" />
             </div>
             <span className="font-semibold tracking-tight">RinoxCheat</span>
@@ -215,7 +215,7 @@ const Index = () => {
               className="group rounded-2xl border border-border bg-card/60 backdrop-blur p-5 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.4)] [...]"
               style={{ animationDelay: `${i * 100}ms` }}
             >
-              <div className="h-9 w-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:r[...]"
+              <div className="h-9 w-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:r[...]">
                 <f.icon className="h-4 w-4 text-primary" />
               </div>
               <h3 className="font-medium mb-1">{f.title}</h3>
@@ -341,7 +341,7 @@ const Index = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
-            />
+            ></iframe>
           </div>
           <p className="mt-2 text-center text-xs text-muted-foreground">
             Si la vidéo ne s'affiche pas ici, <a className="underline" href="https://youtu.be/tLsw-blhUAI" target="_blank" rel="noopener noreferrer">ouvrez-la sur YouTube</a>.
