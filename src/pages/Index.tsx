@@ -335,7 +335,7 @@ const Index = () => {
           <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border bg-card glow-ring">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/tLsw-blhUAI"
+              src="https://www.youtube-nocookie.com/embed/tLsw-blhUAI"
               title="Tutorial — RinoxCheat"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -343,6 +343,9 @@ const Index = () => {
               allowFullScreen
             />
           </div>
+          <p className="mt-2 text-center text-xs text-muted-foreground">
+            Si la vidéo ne s'affiche pas ici, <a className="underline" href="https://youtu.be/tLsw-blhUAI" target="_blank" rel="noopener noreferrer">ouvrez-la sur YouTube</a>.
+          </p>
         </section>
       </main>
 
