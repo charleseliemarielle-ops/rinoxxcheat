@@ -68,7 +68,7 @@ const Index = () => {
     if (!target.trim()) {
       toast({
         title: "Info manquante",
-        description: "Indique ton profile Roblox comme sur la vidéo pour recevoir les cheats.",
+        description: "c",
         variant: "destructive",
       });
       return;
@@ -255,7 +255,7 @@ const Index = () => {
               </div>
 
               <label htmlFor="target" className="block text-sm font-medium mt-1 mb-2">
-                Ton pseudo Roblox
+                Indique ton profile Roblox comme sur la vidéo pour recevoir les cheats.
               </label>
               <Input
                 id="target"
