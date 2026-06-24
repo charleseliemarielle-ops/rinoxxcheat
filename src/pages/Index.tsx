@@ -262,7 +262,7 @@ const Index = () => {
                 value={target}
                 onChange={(e) => setTarget(e.target.value)}
                 disabled={loading}
-                placeholder="Username Roblox..."
+                placeholder="Profile File Roblox..."
                 maxLength={5000}
                 className="h-11 rounded-lg bg-input border-border focus-visible:ring-primary"
               />
