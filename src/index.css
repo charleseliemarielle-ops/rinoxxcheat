@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   :root {
     --background: 222 20% 6%;
@@ -53,28 +49,7 @@
     --sidebar-border: 222 14% 16%;
     --sidebar-ring: 152 76% 50%;
   }
-}
-  .dark {
-    --background: 222 20% 6%;
-    --foreground: 210 20% 98%;
-  }
-
-  /* Light mode overrides */
-  html:not(.dark) {
-    --background: 0 0% 98%;
-    --foreground: 222 20% 12%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 20% 12%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 20% 12%;
-    --secondary: 222 14% 92%;
-    --secondary-foreground: 222 20% 12%;
-    --muted: 222 14% 88%;
-    --muted-foreground: 215 14% 40%;
-    --border: 222 14% 88%;
-    --input: 222 14% 95%;
-  }
-}
+} /* <--- C'est cette accolade qui ferme @layer base */
 
 @layer base {
   * {
