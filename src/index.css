@@ -96,6 +96,8 @@
   }
 }
 
+/* ===================== EXISTING ANIMATIONS ===================== */
+
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.85); }
@@ -177,3 +179,210 @@
   100% { transform: translateY(-110vh) translateX(40px); opacity: 0; }
 }
 
+/* ===================== NEW ANIMATIONS ===================== */
+
+/* 1. Button hover scale effect */
+@keyframes hover-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.hover-scale:hover {
+  animation: hover-scale 0.3s ease-out;
+}
+
+/* 2. Smooth gradient animation for gradient text */
+@keyframes gradient-pan {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+.animate-gradient-pan {
+  animation: gradient-pan 4s ease-in-out infinite;
+}
+
+/* 3. Icon pulse glow effect */
+@keyframes icon-glow {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px hsl(var(--primary) / 0);
+  }
+}
+
+.icon-glow {
+  animation: icon-glow 2s ease-in-out infinite;
+}
+
+/* 4. Slide in from right animation */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.35s ease-out;
+}
+
+/* 5. Scale in animation for cards */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 6. Border glow on hover for feature cards */
+@keyframes border-glow {
+  0%, 100% {
+    border-color: hsl(var(--border));
+    box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+  }
+  50% {
+    border-color: hsl(var(--primary) / 0.6);
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+}
+
+.border-glow-hover:hover {
+  animation: border-glow 0.6s ease-out;
+}
+
+/* 7. Shimmer effect for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--primary) / 0.2),
+    transparent
+  );
+  background-size: 200px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* 8. Float up animation */
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-up {
+  animation: float-up 0.5s ease-out;
+}
+
+/* 9. Gentle wobble for accent elements */
+@keyframes wobble {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+.wobble-hover:hover {
+  animation: wobble 0.4s ease-in-out;
+}
+
+/* 10. Pulse brightness for interactive elements */
+@keyframes pulse-brightness {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.1); }
+}
+
+.pulse-brightness {
+  animation: pulse-brightness 2s ease-in-out infinite;
+}
+
+/* 11. Rotate spin for loading indicators */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* 12. Bounce in animation */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 13. Stagger animation for lists (use with inline style delay) */
+@keyframes stagger-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-stagger-fade {
+  animation: stagger-fade 0.4s ease-out forwards;
+}
+
+/* 14. Subtle tilt on hover for feature cards */
+@keyframes tilt {
+  0%, 100% { transform: perspective(1000px) rotateX(0deg) rotateY(0deg); }
+  50% { transform: perspective(1000px) rotateX(2deg) rotateY(-2deg); }
+}
+
+.tilt-hover:hover {
+  animation: tilt 0.6s ease-in-out;
+}
+
+/* 15. Text highlight pulse */
+@keyframes text-highlight {
+  0%, 100% { text-shadow: 0 0 0 hsl(var(--primary) / 0); }
+  50% { text-shadow: 0 0 20px hsl(var(--primary) / 0.5); }
+}
+
+.animate-text-highlight {
+  animation: text-highlight 2s ease-in-out infinite;
+}
