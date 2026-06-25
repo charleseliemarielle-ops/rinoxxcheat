@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer base {
   :root {
     --background: 222 20% 6%;
@@ -49,7 +53,7 @@
     --sidebar-border: 222 14% 16%;
     --sidebar-ring: 152 76% 50%;
   }
-
+}
   .dark {
     --background: 222 20% 6%;
     --foreground: 210 20% 98%;
