@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import CursorTrail from "@/components/CursorTrail";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
@@ -141,6 +142,13 @@ const Index = () => {
   const [steps, setSteps] = useState<string[]>([]);
   const [done, setDone] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [typedTitle, setTypedTitle] = useState("");
+  const [typedHighlight, setTypedHighlight] = useState("");
+  const [usersOnline, setUsersOnline] = useState(12847);
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const orb1Ref = useRef<HTMLDivElement>(null);
+  const orb2Ref = useRef<HTMLDivElement>(null);
+  const orb3Ref = useRef<HTMLDivElement>(null);
 
   const t = TRANSLATIONS[language];
   const STEPS = language === "fr" ? STEPS_FR : STEPS_EN;
@@ -270,7 +278,79 @@ const Index = () => {
     m.setAttribute("content", desc);
   }, [language]);
 
-  const handleHack = async () => {
+  // Typing effect on hero title
+  useEffect(() => {
+    setTypedTitle("");
+    setTypedHighlight("");
+    const full1 = t.hero_title;
+    const full2 = t.hero_highlight;
+    let i = 0;
+    const timers: number[] = [];
+    const typeTitle = () => {
+      if (i <= full1.length) {
+        setTypedTitle(full1.slice(0, i));
+        i++;
+        timers.push(window.setTimeout(typeTitle, 45));
+      } else {
+        let j = 0;
+        const typeHighlight = () => {
+          if (j <= full2.length) {
+            setTypedHighlight(full2.slice(0, j));
+            j++;
+            timers.push(window.setTimeout(typeHighlight, 55));
+          }
+        };
+        typeHighlight();
+      }
+    };
+    typeTitle();
+    return () => timers.forEach(clearTimeout);
+  }, [language, t.hero_title, t.hero_highlight]);
+
+  // Live users online counter
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setUsersOnline((u) => u + Math.floor(Math.random() * 5) - 1);
+    }, 2200);
+    return () => clearInterval(id);
+  }, []);
+
+  // Parallax orbs following mouse
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (orb1Ref.current) orb1Ref.current.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+      if (orb2Ref.current) orb2Ref.current.style.transform = `translate(${x * -45}px, ${y * 25}px)`;
+      if (orb3Ref.current) orb3Ref.current.style.transform = `translate(${x * 20}px, ${y * -35}px)`;
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  // Auto-rotating reviews carousel
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setReviewIndex((i) => i + 1);
+    }, 4000);
+    return () => clearInterval(id);
+  }, []);
+
+  const handleHack = async (e?: React.MouseEvent<HTMLButtonElement>) => {
+    // Ripple effect
+    if (e) {
+      const btn = e.currentTarget;
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const ripple = document.createElement("span");
+      ripple.className = "ripple-span";
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    }
+
     if (!target.trim()) {
       toast({
         title: t.missingInfo,
@@ -303,6 +383,7 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen">
+      <CursorTrail />
       {/* Background layers */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-50" />
@@ -310,10 +391,10 @@ const Index = () => {
           className="absolute inset-0"
           style={{ background: "var(--gradient-radial)" }}
         />
-        {/* Floating orbs */}
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="orb orb-3" />
+        {/* Floating orbs (parallax) */}
+        <div ref={orb1Ref} className="orb orb-1" />
+        <div ref={orb2Ref} className="orb orb-2" />
+        <div ref={orb3Ref} className="orb orb-3" />
         {/* Drifting particles */}
         <div className="particles">
           {Array.from({ length: 14 }).map((_, i) => (
@@ -333,11 +414,11 @@ const Index = () => {
       {/* Nav */}
       <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2 group">
+          <div className="flex items-center gap-2 group logo-glitch cursor-pointer">
             <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <Crosshair className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="font-semibold tracking-tight">RinoxCheat</span>
+            <span className="font-semibold tracking-tight logo-glitch-text">RinoxCheat</span>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
             <a href="#features" className="hover:text-foreground transition-colors hover:scale-105 inline-block">{t.features}</a>
@@ -368,9 +449,9 @@ const Index = () => {
                 🇺🇸 EN
               </button>
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
               <span className="h-2 w-2 rounded-full bg-primary live-dot" />
-              <span>{t.online}</span>
+              <span className="tabular-nums">{usersOnline.toLocaleString()} {t.online}</span>
             </div>
           </div>
         </div>
@@ -384,12 +465,13 @@ const Index = () => {
             <span>{t.versionBadge}</span>
           </div>
           <h1
-            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in hover:scale-105 transition-transform duration-500"
+            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in"
             style={{ animationDelay: "80ms" }}
           >
-            {t.hero_title} <br className="hidden sm:block" />
+            <span className={typedTitle.length < t.hero_title.length ? "typing-caret" : ""}>{typedTitle}</span>
+            <br className="hidden sm:block" />
             <span className="text-gradient bg-[length:200%_auto] animate-gradient-pan">
-              {t.hero_highlight}
+              <span className={typedTitle.length >= t.hero_title.length && typedHighlight.length < t.hero_highlight.length ? "typing-caret" : ""}>{typedHighlight}</span>
             </span>
           </h1>
           <p
@@ -503,7 +585,7 @@ const Index = () => {
               <Button
                 onClick={handleHack}
                 disabled={loading}
-                className="w-full mt-5 h-12 rounded-lg font-medium text-base shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] disabled:opacity-80 disabled:hover:scale-100 hover:scale-105 hover:shadow-[0_12px_40px_-8px_hsl(var(--primary)/0.8)] transition-all duration-300 transform"
+                className="ripple-btn w-full mt-5 h-12 rounded-lg font-medium text-base shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] disabled:opacity-80 disabled:hover:scale-100 hover:scale-105 hover:shadow-[0_12px_40px_-8px_hsl(var(--primary)/0.8)] transition-all duration-300 transform"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
@@ -588,32 +670,49 @@ const Index = () => {
               {t.reviewsDesc}
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {REVIEWS.map((review, i) => (
-              <div
-                key={i}
-                className="rounded-2xl border border-border bg-card/60 backdrop-blur p-6 hover:border-primary/40 hover:bg-card/80 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.4)] transition-all duration-300 animate-fade-in transform hover:scale-105 hover:-translate-y-1"
-                style={{ animationDelay: `${i * 100}ms` }}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary">
-                    {review.name[0]}
-                  </div>
-                  <div>
-                    <div className="font-medium">{review.name}</div>
-                    <div className="text-xs text-muted-foreground">{review.game}</div>
+          <div className="relative overflow-hidden">
+            <div
+              className="flex transition-transform duration-700 ease-out"
+              style={{ transform: `translateX(-${(reviewIndex % REVIEWS.length) * 100}%)` }}
+            >
+              {REVIEWS.map((review, i) => (
+                <div key={i} className="w-full shrink-0 px-2">
+                  <div className="rounded-2xl border border-border bg-card/60 backdrop-blur p-8 max-w-xl mx-auto hover:border-primary/40 transition-all duration-300">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary text-lg">
+                        {review.name[0]}
+                      </div>
+                      <div>
+                        <div className="font-medium">{review.name}</div>
+                        <div className="text-xs text-muted-foreground">{review.game}</div>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 mb-3">
+                      {Array.from({ length: review.rating }).map((_, j) => (
+                        <Star key={j} className="h-4 w-4 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <p className="text-base text-muted-foreground leading-relaxed">
+                      "{review.text}"
+                    </p>
                   </div>
                 </div>
-                <div className="flex gap-1 mb-2">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-primary text-primary animate-pulse-brightness" style={{ animationDelay: `${i * 100}ms` }} />
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  "{review.text}"
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="flex justify-center gap-2 mt-6">
+              {REVIEWS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setReviewIndex(i)}
+                  aria-label={`Review ${i + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === reviewIndex % REVIEWS.length
+                      ? "w-8 bg-primary"
+                      : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
