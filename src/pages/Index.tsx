@@ -585,7 +585,7 @@ const Index = () => {
               <Button
                 onClick={handleHack}
                 disabled={loading}
-                className="w-full mt-5 h-12 rounded-lg font-medium text-base shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] disabled:opacity-80 disabled:hover:scale-100 hover:scale-105 hover:shadow-[0_12px_40px_-8px_hsl(var(--primary)/0.8)] transition-all duration-300 transform"
+                className="ripple-btn w-full mt-5 h-12 rounded-lg font-medium text-base shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] disabled:opacity-80 disabled:hover:scale-100 hover:scale-105 hover:shadow-[0_12px_40px_-8px_hsl(var(--primary)/0.8)] transition-all duration-300 transform"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
@@ -670,32 +670,49 @@ const Index = () => {
               {t.reviewsDesc}
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {REVIEWS.map((review, i) => (
-              <div
-                key={i}
-                className="rounded-2xl border border-border bg-card/60 backdrop-blur p-6 hover:border-primary/40 hover:bg-card/80 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.4)] transition-all duration-300 animate-fade-in transform hover:scale-105 hover:-translate-y-1"
-                style={{ animationDelay: `${i * 100}ms` }}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary">
-                    {review.name[0]}
-                  </div>
-                  <div>
-                    <div className="font-medium">{review.name}</div>
-                    <div className="text-xs text-muted-foreground">{review.game}</div>
+          <div className="relative overflow-hidden">
+            <div
+              className="flex transition-transform duration-700 ease-out"
+              style={{ transform: `translateX(-${(reviewIndex % REVIEWS.length) * 100}%)` }}
+            >
+              {REVIEWS.map((review, i) => (
+                <div key={i} className="w-full shrink-0 px-2">
+                  <div className="rounded-2xl border border-border bg-card/60 backdrop-blur p-8 max-w-xl mx-auto hover:border-primary/40 transition-all duration-300">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-semibold text-primary text-lg">
+                        {review.name[0]}
+                      </div>
+                      <div>
+                        <div className="font-medium">{review.name}</div>
+                        <div className="text-xs text-muted-foreground">{review.game}</div>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 mb-3">
+                      {Array.from({ length: review.rating }).map((_, j) => (
+                        <Star key={j} className="h-4 w-4 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <p className="text-base text-muted-foreground leading-relaxed">
+                      "{review.text}"
+                    </p>
                   </div>
                 </div>
-                <div className="flex gap-1 mb-2">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-primary text-primary animate-pulse-brightness" style={{ animationDelay: `${i * 100}ms` }} />
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  "{review.text}"
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="flex justify-center gap-2 mt-6">
+              {REVIEWS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setReviewIndex(i)}
+                  aria-label={`Review ${i + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    i === reviewIndex % REVIEWS.length
+                      ? "w-8 bg-primary"
+                      : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
