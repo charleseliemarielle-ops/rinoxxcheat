@@ -383,6 +383,7 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen">
+      <CursorTrail />
       {/* Background layers */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-50" />
@@ -390,10 +391,10 @@ const Index = () => {
           className="absolute inset-0"
           style={{ background: "var(--gradient-radial)" }}
         />
-        {/* Floating orbs */}
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="orb orb-3" />
+        {/* Floating orbs (parallax) */}
+        <div ref={orb1Ref} className="orb orb-1" />
+        <div ref={orb2Ref} className="orb orb-2" />
+        <div ref={orb3Ref} className="orb orb-3" />
         {/* Drifting particles */}
         <div className="particles">
           {Array.from({ length: 14 }).map((_, i) => (
@@ -413,11 +414,11 @@ const Index = () => {
       {/* Nav */}
       <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2 group">
+          <div className="flex items-center gap-2 group logo-glitch cursor-pointer">
             <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <Crosshair className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="font-semibold tracking-tight">RinoxCheat</span>
+            <span className="font-semibold tracking-tight logo-glitch-text">RinoxCheat</span>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-sm text-muted-foreground">
             <a href="#features" className="hover:text-foreground transition-colors hover:scale-105 inline-block">{t.features}</a>
@@ -448,9 +449,9 @@ const Index = () => {
                 🇺🇸 EN
               </button>
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
               <span className="h-2 w-2 rounded-full bg-primary live-dot" />
-              <span>{t.online}</span>
+              <span className="tabular-nums">{usersOnline.toLocaleString()} {t.online}</span>
             </div>
           </div>
         </div>
@@ -464,12 +465,13 @@ const Index = () => {
             <span>{t.versionBadge}</span>
           </div>
           <h1
-            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in hover:scale-105 transition-transform duration-500"
+            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in"
             style={{ animationDelay: "80ms" }}
           >
-            {t.hero_title} <br className="hidden sm:block" />
+            <span className={typedTitle.length < t.hero_title.length ? "typing-caret" : ""}>{typedTitle}</span>
+            <br className="hidden sm:block" />
             <span className="text-gradient bg-[length:200%_auto] animate-gradient-pan">
-              {t.hero_highlight}
+              <span className={typedTitle.length >= t.hero_title.length && typedHighlight.length < t.hero_highlight.length ? "typing-caret" : ""}>{typedHighlight}</span>
             </span>
           </h1>
           <p
