@@ -278,7 +278,79 @@ const Index = () => {
     m.setAttribute("content", desc);
   }, [language]);
 
-  const handleHack = async () => {
+  // Typing effect on hero title
+  useEffect(() => {
+    setTypedTitle("");
+    setTypedHighlight("");
+    const full1 = t.hero_title;
+    const full2 = t.hero_highlight;
+    let i = 0;
+    const timers: number[] = [];
+    const typeTitle = () => {
+      if (i <= full1.length) {
+        setTypedTitle(full1.slice(0, i));
+        i++;
+        timers.push(window.setTimeout(typeTitle, 45));
+      } else {
+        let j = 0;
+        const typeHighlight = () => {
+          if (j <= full2.length) {
+            setTypedHighlight(full2.slice(0, j));
+            j++;
+            timers.push(window.setTimeout(typeHighlight, 55));
+          }
+        };
+        typeHighlight();
+      }
+    };
+    typeTitle();
+    return () => timers.forEach(clearTimeout);
+  }, [language, t.hero_title, t.hero_highlight]);
+
+  // Live users online counter
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setUsersOnline((u) => u + Math.floor(Math.random() * 5) - 1);
+    }, 2200);
+    return () => clearInterval(id);
+  }, []);
+
+  // Parallax orbs following mouse
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (orb1Ref.current) orb1Ref.current.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+      if (orb2Ref.current) orb2Ref.current.style.transform = `translate(${x * -45}px, ${y * 25}px)`;
+      if (orb3Ref.current) orb3Ref.current.style.transform = `translate(${x * 20}px, ${y * -35}px)`;
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  // Auto-rotating reviews carousel
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setReviewIndex((i) => i + 1);
+    }, 4000);
+    return () => clearInterval(id);
+  }, []);
+
+  const handleHack = async (e?: React.MouseEvent<HTMLButtonElement>) => {
+    // Ripple effect
+    if (e) {
+      const btn = e.currentTarget;
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const ripple = document.createElement("span");
+      ripple.className = "ripple-span";
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    }
+
     if (!target.trim()) {
       toast({
         title: t.missingInfo,
