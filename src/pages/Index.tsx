@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import CursorTrail from "@/components/CursorTrail";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
@@ -141,6 +142,13 @@ const Index = () => {
   const [steps, setSteps] = useState<string[]>([]);
   const [done, setDone] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [typedTitle, setTypedTitle] = useState("");
+  const [typedHighlight, setTypedHighlight] = useState("");
+  const [usersOnline, setUsersOnline] = useState(12847);
+  const [reviewIndex, setReviewIndex] = useState(0);
+  const orb1Ref = useRef<HTMLDivElement>(null);
+  const orb2Ref = useRef<HTMLDivElement>(null);
+  const orb3Ref = useRef<HTMLDivElement>(null);
 
   const t = TRANSLATIONS[language];
   const STEPS = language === "fr" ? STEPS_FR : STEPS_EN;
