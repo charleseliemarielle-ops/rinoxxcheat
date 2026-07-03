@@ -109,8 +109,8 @@ const TRANSLATIONS = {
     q2t: "Interface repensée",
     q2d: "Nouveau loader avec profils sauvegardés et raccourcis clavier personnalisables.",
     q3: "T3 2026",
-    q3t: "Mobile support",
-    q3d: "Version pour Roblox mobile (iOS / Android) avec toutes les fonctionnalités.",
+    q3t: "Hyper surface",
+    q3d: "Cheat à deux à partir d'une seule injection.",
     trustedBy: "Plus de",
     trustedByPlayers: "joueurs nous font confiance",
     marqueeItems: [
@@ -202,8 +202,8 @@ const TRANSLATIONS = {
     q2t: "Redesigned UI",
     q2d: "New loader with saved profiles and customizable keybinds.",
     q3: "Q3 2026",
-    q3t: "Mobile support",
-    q3d: "Version for Roblox mobile (iOS / Android) with all features.",
+    q3t: "Hyper surface",
+    q3d: "Multiplayer cheat with 1 injection.",
     trustedBy: "Trusted by over",
     trustedByPlayers: "players worldwide",
     marqueeItems: [
