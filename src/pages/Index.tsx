@@ -34,6 +34,7 @@ import {
   Rocket,
   History as HistoryIcon,
   Trash2,
+  Smartphone,
 } from "lucide-react";
 
 type Language = "fr" | "en";
@@ -41,14 +42,15 @@ type Language = "fr" | "en";
 const TRANSLATIONS = {
   fr: {
     versionBadge: "2026 Edition · v3.0 lancé",
-    hero_title: "Cheats Roblox Premium.",
+    hero_title: "Cheats Roblox nouvelle gen.",
     hero_highlight: "Indétectable. Instantané.",
-    hero_desc: "Le toolkit de cheats Roblox le plus avancé en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Rapide, propre, indétectable.",
+    hero_desc: "Le toolkit de cheats Roblox le plus avancé en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Rapide, propre, indétectable. 100% gratuit.",
     getCheats: "Obtenir les cheats",
     watchTutorial: "Voir le tutoriel",
     undetected: "Indétectable",
     instantDelivery: "Livraison instantanée",
     allGames: "Tous les jeux Roblox",
+    allDevices: "Tous appareils",
     features: "Cheats",
     get: "Obtenir",
     tutorial: "Tutoriel",
@@ -135,14 +137,15 @@ const TRANSLATIONS = {
   },
   en: {
     versionBadge: "2026 Edition · v3.0 shipped",
-    hero_title: "Premium Roblox cheats.",
+    hero_title: "Next-gen Roblox cheats.",
     hero_highlight: "Undetected. Instant.",
-    hero_desc: "The most advanced Roblox cheat toolkit in 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Fast, clean, undetectable.",
+    hero_desc: "The most advanced Roblox cheat toolkit in 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Fast, clean, undetectable. 100% free.",
     getCheats: "Get the cheats",
     watchTutorial: "Watch tutorial",
     undetected: "Undetected",
     instantDelivery: "Instant delivery",
     allGames: "All Roblox games",
+    allDevices: "All devices",
     features: "Cheats",
     get: "Get",
     tutorial: "Tutorial",
@@ -307,10 +310,10 @@ const Index = () => {
   ];
 
   useEffect(() => {
-    document.title = language === "fr" ? "RinoxCheat — Cheats Roblox Premium 2026" : "RinoxCheat — Premium Roblox Cheats 2026";
+    document.title = language === "fr" ? "RinoxCheat — Cheats Roblox gratuits 2026" : "RinoxCheat — Free Roblox Cheats 2026";
     const desc = language === "fr"
-      ? "RinoxCheat: les meilleurs cheats Roblox indétectables en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion."
-      : "RinoxCheat: The best undetectable Roblox cheats in 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion.";
+      ? "RinoxCheat: les meilleurs cheats Roblox gratuits et indétectables en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Compatible tous appareils."
+      : "RinoxCheat: The best free undetectable Roblox cheats in 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Works on all devices.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
@@ -474,7 +477,7 @@ const Index = () => {
 
       {/* Nav */}
       <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2 group logo-glitch cursor-pointer">
             <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <Crosshair className="h-4 w-4 text-primary-foreground" />
@@ -571,7 +574,7 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-5 sm:px-8 pb-20">
+      <main className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 pb-20">
         {/* Hero */}
         <section className="pt-14 sm:pt-20 pb-12 text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/60 text-xs text-muted-foreground mb-6 animate-fade-in hover:scale-105 transition-transform duration-300">
@@ -613,6 +616,9 @@ const Index = () => {
             </span>
             <span className="flex items-center gap-1.5 hover:text-primary transition-colors">
               <Gamepad2 className="h-3.5 w-3.5 text-primary" /> {t.allGames}
+            </span>
+            <span className="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <Smartphone className="h-3.5 w-3.5 text-primary" /> {t.allDevices}
             </span>
           </div>
         </section>
@@ -981,7 +987,7 @@ const Index = () => {
       </main>
 
       <footer className="border-t border-border/60 mt-24">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <div className="h-5 w-5 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] flex items-center justify-center">
               <Crosshair className="h-3 w-3 text-primary-foreground" />
