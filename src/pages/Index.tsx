@@ -617,6 +617,9 @@ const Index = () => {
             <span className="flex items-center gap-1.5 hover:text-primary transition-colors">
               <Gamepad2 className="h-3.5 w-3.5 text-primary" /> {t.allGames}
             </span>
+            <span className="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <Smartphone className="h-3.5 w-3.5 text-primary" /> {t.allDevices}
+            </span>
           </div>
         </section>
 
