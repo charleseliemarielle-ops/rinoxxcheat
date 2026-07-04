@@ -477,7 +477,7 @@ const Index = () => {
 
       {/* Nav */}
       <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2 group logo-glitch cursor-pointer">
             <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <Crosshair className="h-4 w-4 text-primary-foreground" />
@@ -574,7 +574,7 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-5 sm:px-8 pb-20">
+      <main className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 pb-20">
         {/* Hero */}
         <section className="pt-14 sm:pt-20 pb-12 text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/60 text-xs text-muted-foreground mb-6 animate-fade-in hover:scale-105 transition-transform duration-300">
@@ -987,7 +987,7 @@ const Index = () => {
       </main>
 
       <footer className="border-t border-border/60 mt-24">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
             <div className="h-5 w-5 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] flex items-center justify-center">
               <Crosshair className="h-3 w-3 text-primary-foreground" />
