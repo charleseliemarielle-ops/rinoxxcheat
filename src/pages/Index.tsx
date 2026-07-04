@@ -34,6 +34,7 @@ import {
   Rocket,
   History as HistoryIcon,
   Trash2,
+  Smartphone,
 } from "lucide-react";
 
 type Language = "fr" | "en";
