@@ -309,10 +309,10 @@ const Index = () => {
   ];
 
   useEffect(() => {
-    document.title = language === "fr" ? "RinoxCheat — Cheats Roblox Premium 2026" : "RinoxCheat — Premium Roblox Cheats 2026";
+    document.title = language === "fr" ? "RinoxCheat — Cheats Roblox gratuits 2026" : "RinoxCheat — Free Roblox Cheats 2026";
     const desc = language === "fr"
-      ? "RinoxCheat: les meilleurs cheats Roblox indétectables en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion."
-      : "RinoxCheat: The best undetectable Roblox cheats in 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion.";
+      ? "RinoxCheat: les meilleurs cheats Roblox gratuits et indétectables en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Compatible tous appareils."
+      : "RinoxCheat: The best free undetectable Roblox cheats in 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Works on all devices.";
     let m = document.querySelector('meta[name="description"]');
     if (!m) {
       m = document.createElement("meta");
