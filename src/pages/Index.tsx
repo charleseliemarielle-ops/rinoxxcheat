@@ -41,14 +41,15 @@ type Language = "fr" | "en";
 const TRANSLATIONS = {
   fr: {
     versionBadge: "2026 Edition · v3.0 lancé",
-    hero_title: "Cheats Roblox Premium.",
+    hero_title: "Cheats Roblox nouvelle gen.",
     hero_highlight: "Indétectable. Instantané.",
-    hero_desc: "Le toolkit de cheats Roblox le plus avancé en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Rapide, propre, indétectable.",
+    hero_desc: "Le toolkit de cheats Roblox le plus avancé en 2026. Aimbot, ESP, Fly, Speed — bypass Byfron & Hyperion. Rapide, propre, indétectable. 100% gratuit.",
     getCheats: "Obtenir les cheats",
     watchTutorial: "Voir le tutoriel",
     undetected: "Indétectable",
     instantDelivery: "Livraison instantanée",
     allGames: "Tous les jeux Roblox",
+    allDevices: "Tous appareils",
     features: "Cheats",
     get: "Obtenir",
     tutorial: "Tutoriel",
