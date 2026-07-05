@@ -6,6 +6,10 @@ import BackToTop from "@/components/BackToTop";
 import Reveal from "@/components/Reveal";
 import AnimatedNumber from "@/components/AnimatedNumber";
 import Marquee from "@/components/Marquee";
+import KonamiEgg from "@/components/KonamiEgg";
+import GamesShowcase from "@/components/GamesShowcase";
+import Comparison from "@/components/Comparison";
+import Changelog from "@/components/Changelog";
 import { useUISounds } from "@/hooks/useUISounds";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -376,6 +380,20 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (!t) return;
+      const el = t.closest<HTMLElement>(".spotlight");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  useEffect(() => {
     try {
       localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 5)));
     } catch {}
@@ -443,6 +461,8 @@ const Index = () => {
       <ScrollProgress />
       <CursorTrail />
       <BackToTop />
+      <KonamiEgg label={language === "fr" ? "Mode Turbo débloqué 🚀" : "Turbo mode unlocked 🚀"} />
+
 
       {/* Systems ticker */}
       <div className="w-full bg-primary/10 border-b border-primary/20 text-center py-1.5 text-xs text-primary flex items-center justify-center gap-2">
@@ -635,7 +655,7 @@ const Index = () => {
               <div
                 key={f.title}
                 onMouseEnter={() => sounds.play("hover")}
-                className="tip group glass rounded-2xl p-5 hover:border-primary/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.5)] transition-all duration-300 transform hover:scale-105 cursor-pointer tilt-hover animate-fade-in"
+                className="tip group spotlight glass rounded-2xl p-5 hover:border-primary/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.5)] transition-all duration-300 transform hover:scale-105 cursor-pointer tilt-hover animate-fade-in"
                 data-tip={f.tip}
                 style={{ animationDelay: `${i * 100}ms` }}
               >
@@ -947,6 +967,84 @@ const Index = () => {
               </div>
             </div>
           </section>
+        </Reveal>
+
+        {/* Games Showcase */}
+        <Reveal>
+          <GamesShowcase
+            title={language === "fr" ? "Jeux supportés" : "Supported games"}
+            desc={language === "fr" ? "Compatible avec les jeux Roblox les plus populaires." : "Compatible with the most popular Roblox games."}
+            searchPlaceholder={language === "fr" ? "Rechercher un jeu..." : "Search a game..."}
+            emptyLabel={language === "fr" ? "Aucun jeu trouvé." : "No game found."}
+          />
+        </Reveal>
+
+        {/* Comparison */}
+        <Reveal>
+          <Comparison
+            title={language === "fr" ? "Pourquoi RinoxCheat ?" : "Why RinoxCheat?"}
+            desc={language === "fr" ? "Comparé aux autres solutions du marché." : "Compared to other solutions on the market."}
+            us="RinoxCheat"
+            them={language === "fr" ? "Autres cheats" : "Other cheats"}
+            rows={language === "fr" ? [
+              { label: "Prix", us: "Gratuit", them: "Payant" },
+              { label: "Bypass Byfron / Hyperion", us: true, them: false },
+              { label: "Livraison instantanée", us: true, them: false },
+              { label: "Tous appareils", us: true, them: false },
+              { label: "Mises à jour continues", us: true, them: false },
+              { label: "Historique local privé", us: true, them: false },
+              { label: "0 bans rapportés en 2026", us: true, them: false },
+            ] : [
+              { label: "Price", us: "Free", them: "Paid" },
+              { label: "Byfron / Hyperion bypass", us: true, them: false },
+              { label: "Instant delivery", us: true, them: false },
+              { label: "All devices", us: true, them: false },
+              { label: "Continuous updates", us: true, them: false },
+              { label: "Private local history", us: true, them: false },
+              { label: "0 bans reported in 2026", us: true, them: false },
+            ]}
+          />
+        </Reveal>
+
+        {/* Changelog */}
+        <Reveal>
+          <Changelog
+            title={language === "fr" ? "Notes de version" : "Changelog"}
+            desc={language === "fr" ? "Toutes les dernières mises à jour." : "All the latest updates."}
+            entries={language === "fr" ? [
+              { version: "v3.0", date: "Jan 2026", changes: [
+                "Nouveau bypass Byfron v3 indétectable",
+                "Interface repensée + effets spotlight",
+                "Historique local des injections",
+                "Support complet mobile (iOS / Android)",
+              ]},
+              { version: "v2.8", date: "Dec 2025", changes: [
+                "Aimbot silencieux amélioré (+40% précision)",
+                "Nouveau ESP avec HP et distance",
+                "Correction du fly sur les jeux physiques",
+              ]},
+              { version: "v2.5", date: "Nov 2025", changes: [
+                "Ajout du mode No-Clip stable",
+                "Optimisation des performances (-30% CPU)",
+              ]},
+            ] : [
+              { version: "v3.0", date: "Jan 2026", changes: [
+                "New undetectable Byfron v3 bypass",
+                "Redesigned UI + spotlight effects",
+                "Local injection history",
+                "Full mobile support (iOS / Android)",
+              ]},
+              { version: "v2.8", date: "Dec 2025", changes: [
+                "Improved silent aimbot (+40% accuracy)",
+                "New ESP with HP and distance",
+                "Fixed fly on physics-based games",
+              ]},
+              { version: "v2.5", date: "Nov 2025", changes: [
+                "Added stable No-Clip mode",
+                "Performance optimization (-30% CPU)",
+              ]},
+            ]}
+          />
         </Reveal>
 
         {/* FAQ */}
