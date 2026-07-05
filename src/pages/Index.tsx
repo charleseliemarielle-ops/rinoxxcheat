@@ -461,6 +461,8 @@ const Index = () => {
       <ScrollProgress />
       <CursorTrail />
       <BackToTop />
+      <KonamiEgg label={language === "fr" ? "Mode Turbo débloqué 🚀" : "Turbo mode unlocked 🚀"} />
+
 
       {/* Systems ticker */}
       <div className="w-full bg-primary/10 border-b border-primary/20 text-center py-1.5 text-xs text-primary flex items-center justify-center gap-2">
