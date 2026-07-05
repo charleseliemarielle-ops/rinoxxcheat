@@ -655,7 +655,7 @@ const Index = () => {
               <div
                 key={f.title}
                 onMouseEnter={() => sounds.play("hover")}
-                className="tip group glass rounded-2xl p-5 hover:border-primary/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.5)] transition-all duration-300 transform hover:scale-105 cursor-pointer tilt-hover animate-fade-in"
+                className="tip group spotlight glass rounded-2xl p-5 hover:border-primary/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.5)] transition-all duration-300 transform hover:scale-105 cursor-pointer tilt-hover animate-fade-in"
                 data-tip={f.tip}
                 style={{ animationDelay: `${i * 100}ms` }}
               >
