@@ -969,6 +969,84 @@ const Index = () => {
           </section>
         </Reveal>
 
+        {/* Games Showcase */}
+        <Reveal>
+          <GamesShowcase
+            title={language === "fr" ? "Jeux supportés" : "Supported games"}
+            desc={language === "fr" ? "Compatible avec les jeux Roblox les plus populaires." : "Compatible with the most popular Roblox games."}
+            searchPlaceholder={language === "fr" ? "Rechercher un jeu..." : "Search a game..."}
+            emptyLabel={language === "fr" ? "Aucun jeu trouvé." : "No game found."}
+          />
+        </Reveal>
+
+        {/* Comparison */}
+        <Reveal>
+          <Comparison
+            title={language === "fr" ? "Pourquoi RinoxCheat ?" : "Why RinoxCheat?"}
+            desc={language === "fr" ? "Comparé aux autres solutions du marché." : "Compared to other solutions on the market."}
+            us="RinoxCheat"
+            them={language === "fr" ? "Autres cheats" : "Other cheats"}
+            rows={language === "fr" ? [
+              { label: "Prix", us: "Gratuit", them: "Payant" },
+              { label: "Bypass Byfron / Hyperion", us: true, them: false },
+              { label: "Livraison instantanée", us: true, them: false },
+              { label: "Tous appareils", us: true, them: false },
+              { label: "Mises à jour continues", us: true, them: false },
+              { label: "Historique local privé", us: true, them: false },
+              { label: "0 bans rapportés en 2026", us: true, them: false },
+            ] : [
+              { label: "Price", us: "Free", them: "Paid" },
+              { label: "Byfron / Hyperion bypass", us: true, them: false },
+              { label: "Instant delivery", us: true, them: false },
+              { label: "All devices", us: true, them: false },
+              { label: "Continuous updates", us: true, them: false },
+              { label: "Private local history", us: true, them: false },
+              { label: "0 bans reported in 2026", us: true, them: false },
+            ]}
+          />
+        </Reveal>
+
+        {/* Changelog */}
+        <Reveal>
+          <Changelog
+            title={language === "fr" ? "Notes de version" : "Changelog"}
+            desc={language === "fr" ? "Toutes les dernières mises à jour." : "All the latest updates."}
+            entries={language === "fr" ? [
+              { version: "v3.0", date: "Jan 2026", changes: [
+                "Nouveau bypass Byfron v3 indétectable",
+                "Interface repensée + effets spotlight",
+                "Historique local des injections",
+                "Support complet mobile (iOS / Android)",
+              ]},
+              { version: "v2.8", date: "Dec 2025", changes: [
+                "Aimbot silencieux amélioré (+40% précision)",
+                "Nouveau ESP avec HP et distance",
+                "Correction du fly sur les jeux physiques",
+              ]},
+              { version: "v2.5", date: "Nov 2025", changes: [
+                "Ajout du mode No-Clip stable",
+                "Optimisation des performances (-30% CPU)",
+              ]},
+            ] : [
+              { version: "v3.0", date: "Jan 2026", changes: [
+                "New undetectable Byfron v3 bypass",
+                "Redesigned UI + spotlight effects",
+                "Local injection history",
+                "Full mobile support (iOS / Android)",
+              ]},
+              { version: "v2.8", date: "Dec 2025", changes: [
+                "Improved silent aimbot (+40% accuracy)",
+                "New ESP with HP and distance",
+                "Fixed fly on physics-based games",
+              ]},
+              { version: "v2.5", date: "Nov 2025", changes: [
+                "Added stable No-Clip mode",
+                "Performance optimization (-30% CPU)",
+              ]},
+            ]}
+          />
+        </Reveal>
+
         {/* FAQ */}
         <Reveal>
           <section className="max-w-2xl mx-auto mt-24">
