@@ -380,6 +380,20 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (!t) return;
+      const el = t.closest<HTMLElement>(".spotlight");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    window.addEventListener("mousemove", onMove);
+    return () => window.removeEventListener("mousemove", onMove);
+  }, []);
+
+  useEffect(() => {
     try {
       localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0, 5)));
     } catch {}
