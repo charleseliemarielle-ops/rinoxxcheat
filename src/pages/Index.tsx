@@ -513,6 +513,14 @@ const Index = () => {
       <CursorTrail />
       <BackToTop />
       <KonamiEgg label={language === "fr" ? "Mode Turbo débloqué 🚀" : "Turbo mode unlocked 🚀"} />
+      <Terminal />
+      <ShareButton
+        label={language === "fr" ? "Partager" : "Share"}
+        copied={language === "fr" ? "Lien copié !" : "Link copied!"}
+        shareText={language === "fr" ? "RinoxCheat — cheats Roblox gratuits & indétectables" : "RinoxCheat — free, undetectable Roblox cheats"}
+      />
+      <FakeSocialProof language={language} enabled />
+
 
 
       {/* Systems ticker */}
