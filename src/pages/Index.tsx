@@ -1207,9 +1207,11 @@ const Index = () => {
             </div>
             <span>{t.copyright}</span>
           </div>
+          <VisitCounter label={language === "fr" ? "Visiteur n°" : "Visitor #"} />
           <p>{t.privateNote}</p>
         </div>
       </footer>
+
     </div>
   );
 };
