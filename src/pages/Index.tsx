@@ -10,6 +10,14 @@ import KonamiEgg from "@/components/KonamiEgg";
 import GamesShowcase from "@/components/GamesShowcase";
 import Comparison from "@/components/Comparison";
 import Changelog from "@/components/Changelog";
+import HowItWorks from "@/components/HowItWorks";
+import TrustBadges from "@/components/TrustBadges";
+import ScreenshotMockup from "@/components/ScreenshotMockup";
+import Terminal from "@/components/Terminal";
+import ShareButton from "@/components/ShareButton";
+import VisitCounter from "@/components/VisitCounter";
+import FakeSocialProof from "@/components/FakeSocialProof";
+import { useFocusMode } from "@/hooks/useFocusMode";
 import { useUISounds } from "@/hooks/useUISounds";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,7 +47,10 @@ import {
   History as HistoryIcon,
   Trash2,
   Smartphone,
+  Download,
+  Trophy,
 } from "lucide-react";
+
 
 type Language = "fr" | "en";
 
