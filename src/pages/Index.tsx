@@ -670,9 +670,10 @@ const Index = () => {
           </p>
           <div className="mt-8 flex items-center justify-center gap-3 animate-fade-in" style={{ animationDelay: "240ms" }}>
             <a href="#tool" onClick={() => sounds.play("click")}>
-              <Button className="h-11 px-6 rounded-full font-medium shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] hover:scale-110 hover:shadow-[0_12px_40px_-8px_hsl(var(--primary)/0.8)] transition-all duration-300 animate-bounce-in">
+              <Button className="neon-pulse h-11 px-6 rounded-full font-medium hover:scale-110 transition-all duration-300 animate-bounce-in">
                 {t.getCheats}
               </Button>
+
             </a>
             <a href="#tutorial" onClick={() => sounds.play("click")}>
               <Button variant="secondary" className="h-11 px-6 rounded-full font-medium hover:scale-110 transition-all duration-300">
