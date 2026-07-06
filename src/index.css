@@ -722,3 +722,49 @@
   border-radius: 6px;
 }
 
+/* ===================== NEON PULSE CTA ===================== */
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 hsl(var(--primary) / 0.5),
+      0 8px 30px -8px hsl(var(--primary) / 0.6);
+  }
+  50% {
+    box-shadow:
+      0 0 0 8px hsl(var(--primary) / 0),
+      0 12px 40px -8px hsl(var(--primary) / 0.9);
+  }
+}
+.neon-pulse {
+  animation: neon-pulse 2.2s ease-in-out infinite;
+}
+
+/* ===================== NAV SCROLLED STATE ===================== */
+.nav-scrolled {
+  background: hsl(var(--background) / 0.85) !important;
+  border-bottom-color: hsl(var(--primary) / 0.25) !important;
+  box-shadow: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
+}
+
+/* ===================== HERO 3D PARALLAX ===================== */
+.hero-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+/* ===================== FOCUS MODE ===================== */
+html.focus-mode header,
+html.focus-mode footer,
+html.focus-mode .orb,
+html.focus-mode .particles,
+html.focus-mode .grid-bg {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease;
+}
+html.focus-mode main {
+  transition: filter 0.4s ease;
+}
+
+

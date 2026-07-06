@@ -10,6 +10,14 @@ import KonamiEgg from "@/components/KonamiEgg";
 import GamesShowcase from "@/components/GamesShowcase";
 import Comparison from "@/components/Comparison";
 import Changelog from "@/components/Changelog";
+import HowItWorks from "@/components/HowItWorks";
+import TrustBadges from "@/components/TrustBadges";
+import ScreenshotMockup from "@/components/ScreenshotMockup";
+import Terminal from "@/components/Terminal";
+import ShareButton from "@/components/ShareButton";
+import VisitCounter from "@/components/VisitCounter";
+import FakeSocialProof from "@/components/FakeSocialProof";
+import { useFocusMode } from "@/hooks/useFocusMode";
 import { useUISounds } from "@/hooks/useUISounds";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,7 +47,10 @@ import {
   History as HistoryIcon,
   Trash2,
   Smartphone,
+  Download,
+  Trophy,
 } from "lucide-react";
+
 
 type Language = "fr" | "en";
 
@@ -275,7 +286,15 @@ const Index = () => {
   const orb1Ref = useRef<HTMLDivElement>(null);
   const orb2Ref = useRef<HTMLDivElement>(null);
   const orb3Ref = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLHeadingElement>(null);
+  const [navScrolled, setNavScrolled] = useState(false);
   const sounds = useUISounds();
+
+  useFocusMode({
+    on: language === "fr" ? "Mode Focus activé (F)" : "Focus mode on (F)",
+    off: language === "fr" ? "Mode Focus désactivé" : "Focus mode off",
+  });
+
 
   const t = TRANSLATIONS[language];
   const STEPS = language === "fr" ? STEPS_FR : STEPS_EN;
@@ -399,6 +418,38 @@ const Index = () => {
     } catch {}
   }, [history]);
 
+  // Nav scroll state (enhanced glassmorphism when scrolled)
+  useEffect(() => {
+    const onScroll = () => setNavScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Hero 3D parallax follow cursor
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const rx = ((e.clientY - cy) / rect.height) * -6;
+      const ry = ((e.clientX - cx) / rect.width) * 6;
+      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    };
+    const onLeave = () => {
+      el.style.transform = "perspective(900px) rotateX(0) rotateY(0)";
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseleave", onLeave);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
+
   const handleHack = async (e?: React.MouseEvent<HTMLButtonElement>) => {
     if (e) {
       const btn = e.currentTarget;
@@ -462,6 +513,14 @@ const Index = () => {
       <CursorTrail />
       <BackToTop />
       <KonamiEgg label={language === "fr" ? "Mode Turbo débloqué 🚀" : "Turbo mode unlocked 🚀"} />
+      <Terminal />
+      <ShareButton
+        label={language === "fr" ? "Partager" : "Share"}
+        copied={language === "fr" ? "Lien copié !" : "Link copied!"}
+        shareText={language === "fr" ? "RinoxCheat — cheats Roblox gratuits & indétectables" : "RinoxCheat — free, undetectable Roblox cheats"}
+      />
+      <FakeSocialProof language={language} enabled />
+
 
 
       {/* Systems ticker */}
@@ -496,7 +555,8 @@ const Index = () => {
       </div>
 
       {/* Nav */}
-      <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
+      <header className={`sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60 transition-all duration-300 ${navScrolled ? "nav-scrolled" : ""}`}>
+
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2 group logo-glitch cursor-pointer">
             <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
@@ -602,7 +662,8 @@ const Index = () => {
             <span>{t.versionBadge}</span>
           </div>
           <h1
-            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in"
+            ref={heroRef}
+            className="hero-3d text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in"
             style={{ animationDelay: "80ms" }}
           >
             <span className={typedTitle.length < t.hero_title.length ? "typing-caret" : ""}>{typedTitle}</span>
@@ -611,14 +672,16 @@ const Index = () => {
               <span className={typedTitle.length >= t.hero_title.length && typedHighlight.length < t.hero_highlight.length ? "typing-caret" : ""}>{typedHighlight}</span>
             </span>
           </h1>
+
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto animate-fade-in" style={{ animationDelay: "160ms" }}>
             {t.hero_desc}
           </p>
           <div className="mt-8 flex items-center justify-center gap-3 animate-fade-in" style={{ animationDelay: "240ms" }}>
             <a href="#tool" onClick={() => sounds.play("click")}>
-              <Button className="h-11 px-6 rounded-full font-medium shadow-[0_8px_30px_-8px_hsl(var(--primary)/0.6)] hover:scale-110 hover:shadow-[0_12px_40px_-8px_hsl(var(--primary)/0.8)] transition-all duration-300 animate-bounce-in">
+              <Button className="neon-pulse h-11 px-6 rounded-full font-medium hover:scale-110 transition-all duration-300 animate-bounce-in">
                 {t.getCheats}
               </Button>
+
             </a>
             <a href="#tutorial" onClick={() => sounds.play("click")}>
               <Button variant="secondary" className="h-11 px-6 rounded-full font-medium hover:scale-110 transition-all duration-300">
@@ -670,6 +733,58 @@ const Index = () => {
             ))}
           </section>
         </Reveal>
+
+        {/* How it works */}
+        <Reveal>
+          <HowItWorks
+            title={language === "fr" ? "Comment ça marche" : "How it works"}
+            desc={language === "fr" ? "4 étapes simples pour lancer tes cheats." : "4 simple steps to launch your cheats."}
+            steps={language === "fr" ? [
+              { icon: Download, title: "1. Ouvre le loader", desc: "Accède au panneau d'injection en un clic." },
+              { icon: Zap, title: "2. Injecte", desc: "Entre ton profil et lance l'injection sécurisée." },
+              { icon: Gamepad2, title: "3. Choisis ton jeu", desc: "Compatible avec 200+ jeux Roblox populaires." },
+              { icon: Trophy, title: "4. Domine", desc: "Aimbot, ESP, Fly activés en 2–3 minutes." },
+            ] : [
+              { icon: Download, title: "1. Open the loader", desc: "Access the injection panel in one click." },
+              { icon: Zap, title: "2. Inject", desc: "Enter your profile and run the secure injection." },
+              { icon: Gamepad2, title: "3. Pick your game", desc: "Compatible with 200+ popular Roblox games." },
+              { icon: Trophy, title: "4. Dominate", desc: "Aimbot, ESP, Fly active in 2–3 minutes." },
+            ]}
+          />
+        </Reveal>
+
+        {/* Trust badges */}
+        <Reveal>
+          <TrustBadges
+            items={language === "fr" ? [
+              { icon: "shield", label: "SSL sécurisé", sub: "Chiffrement bout en bout" },
+              { icon: "lock", label: "0 malware", sub: "Scanné en continu" },
+              { icon: "badge", label: "100% gratuit", sub: "Aucun paiement" },
+              { icon: "clock", label: "24/7 uptime", sub: "99.98% de dispo" },
+            ] : [
+              { icon: "shield", label: "SSL secured", sub: "End-to-end encryption" },
+              { icon: "lock", label: "0 malware", sub: "Continuously scanned" },
+              { icon: "badge", label: "100% free", sub: "No payment required" },
+              { icon: "clock", label: "24/7 uptime", sub: "99.98% availability" },
+            ]}
+          />
+        </Reveal>
+
+        {/* Screenshot mockup */}
+        <Reveal>
+          <ScreenshotMockup
+            title={language === "fr" ? "Aperçu du loader" : "Loader preview"}
+            desc={language === "fr" ? "Une interface pensée pour la simplicité." : "An interface designed for simplicity."}
+            labels={{
+              aimbot: language === "fr" ? "Aimbot précision" : "Aimbot accuracy",
+              esp: language === "fr" ? "ESP mode" : "ESP mode",
+              fly: language === "fr" ? "Fly / Speed" : "Fly / Speed",
+              safe: language === "fr" ? "Session safe" : "Session safe",
+              status: language === "fr" ? "> module actif · bypass Byfron v3 · latence 12ms" : "> module active · Byfron v3 bypass · latency 12ms",
+            }}
+          />
+        </Reveal>
+
 
         {/* Live stats */}
         <Reveal>
@@ -1092,9 +1207,11 @@ const Index = () => {
             </div>
             <span>{t.copyright}</span>
           </div>
+          <VisitCounter label={language === "fr" ? "Visiteur n°" : "Visitor #"} />
           <p>{t.privateNote}</p>
         </div>
       </footer>
+
     </div>
   );
 };
