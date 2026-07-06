@@ -547,7 +547,8 @@ const Index = () => {
       </div>
 
       {/* Nav */}
-      <header className="sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60">
+      <header className={`sticky top-0 z-30 backdrop-blur-md bg-background/70 border-b border-border/60 transition-all duration-300 ${navScrolled ? "nav-scrolled" : ""}`}>
+
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2 group logo-glitch cursor-pointer">
             <div className="h-7 w-7 rounded-md bg-gradient-to-br from-primary to-[hsl(var(--primary-glow))] bg-[length:200%_200%] animate-gradient-pan flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
