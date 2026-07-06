@@ -734,6 +734,58 @@ const Index = () => {
           </section>
         </Reveal>
 
+        {/* How it works */}
+        <Reveal>
+          <HowItWorks
+            title={language === "fr" ? "Comment ça marche" : "How it works"}
+            desc={language === "fr" ? "4 étapes simples pour lancer tes cheats." : "4 simple steps to launch your cheats."}
+            steps={language === "fr" ? [
+              { icon: Download, title: "1. Ouvre le loader", desc: "Accède au panneau d'injection en un clic." },
+              { icon: Zap, title: "2. Injecte", desc: "Entre ton profil et lance l'injection sécurisée." },
+              { icon: Gamepad2, title: "3. Choisis ton jeu", desc: "Compatible avec 200+ jeux Roblox populaires." },
+              { icon: Trophy, title: "4. Domine", desc: "Aimbot, ESP, Fly activés en 2–3 minutes." },
+            ] : [
+              { icon: Download, title: "1. Open the loader", desc: "Access the injection panel in one click." },
+              { icon: Zap, title: "2. Inject", desc: "Enter your profile and run the secure injection." },
+              { icon: Gamepad2, title: "3. Pick your game", desc: "Compatible with 200+ popular Roblox games." },
+              { icon: Trophy, title: "4. Dominate", desc: "Aimbot, ESP, Fly active in 2–3 minutes." },
+            ]}
+          />
+        </Reveal>
+
+        {/* Trust badges */}
+        <Reveal>
+          <TrustBadges
+            items={language === "fr" ? [
+              { icon: "shield", label: "SSL sécurisé", sub: "Chiffrement bout en bout" },
+              { icon: "lock", label: "0 malware", sub: "Scanné en continu" },
+              { icon: "badge", label: "100% gratuit", sub: "Aucun paiement" },
+              { icon: "clock", label: "24/7 uptime", sub: "99.98% de dispo" },
+            ] : [
+              { icon: "shield", label: "SSL secured", sub: "End-to-end encryption" },
+              { icon: "lock", label: "0 malware", sub: "Continuously scanned" },
+              { icon: "badge", label: "100% free", sub: "No payment required" },
+              { icon: "clock", label: "24/7 uptime", sub: "99.98% availability" },
+            ]}
+          />
+        </Reveal>
+
+        {/* Screenshot mockup */}
+        <Reveal>
+          <ScreenshotMockup
+            title={language === "fr" ? "Aperçu du loader" : "Loader preview"}
+            desc={language === "fr" ? "Une interface pensée pour la simplicité." : "An interface designed for simplicity."}
+            labels={{
+              aimbot: language === "fr" ? "Aimbot précision" : "Aimbot accuracy",
+              esp: language === "fr" ? "ESP mode" : "ESP mode",
+              fly: language === "fr" ? "Fly / Speed" : "Fly / Speed",
+              safe: language === "fr" ? "Session safe" : "Session safe",
+              status: language === "fr" ? "> module actif · bypass Byfron v3 · latence 12ms" : "> module active · Byfron v3 bypass · latency 12ms",
+            }}
+          />
+        </Reveal>
+
+
         {/* Live stats */}
         <Reveal>
           <section aria-label="Stats" className="mb-20">
