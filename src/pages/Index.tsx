@@ -418,6 +418,38 @@ const Index = () => {
     } catch {}
   }, [history]);
 
+  // Nav scroll state (enhanced glassmorphism when scrolled)
+  useEffect(() => {
+    const onScroll = () => setNavScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Hero 3D parallax follow cursor
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const rx = ((e.clientY - cy) / rect.height) * -6;
+      const ry = ((e.clientX - cx) / rect.width) * 6;
+      el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    };
+    const onLeave = () => {
+      el.style.transform = "perspective(900px) rotateX(0) rotateY(0)";
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseleave", onLeave);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
+
   const handleHack = async (e?: React.MouseEvent<HTMLButtonElement>) => {
     if (e) {
       const btn = e.currentTarget;
