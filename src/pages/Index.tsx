@@ -286,7 +286,15 @@ const Index = () => {
   const orb1Ref = useRef<HTMLDivElement>(null);
   const orb2Ref = useRef<HTMLDivElement>(null);
   const orb3Ref = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLHeadingElement>(null);
+  const [navScrolled, setNavScrolled] = useState(false);
   const sounds = useUISounds();
+
+  useFocusMode({
+    on: language === "fr" ? "Mode Focus activé (F)" : "Focus mode on (F)",
+    off: language === "fr" ? "Mode Focus désactivé" : "Focus mode off",
+  });
+
 
   const t = TRANSLATIONS[language];
   const STEPS = language === "fr" ? STEPS_FR : STEPS_EN;
