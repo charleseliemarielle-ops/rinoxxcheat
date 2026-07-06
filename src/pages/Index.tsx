@@ -654,7 +654,8 @@ const Index = () => {
             <span>{t.versionBadge}</span>
           </div>
           <h1
-            className="text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in"
+            ref={heroRef}
+            className="hero-3d text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] mb-5 animate-fade-in"
             style={{ animationDelay: "80ms" }}
           >
             <span className={typedTitle.length < t.hero_title.length ? "typing-caret" : ""}>{typedTitle}</span>
@@ -663,6 +664,7 @@ const Index = () => {
               <span className={typedTitle.length >= t.hero_title.length && typedHighlight.length < t.hero_highlight.length ? "typing-caret" : ""}>{typedHighlight}</span>
             </span>
           </h1>
+
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl mx-auto animate-fade-in" style={{ animationDelay: "160ms" }}>
             {t.hero_desc}
           </p>
